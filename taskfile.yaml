@@ -31,7 +31,7 @@ tasks:
       - task serve
 
   gen-css:
-    cmd: echo "Generating CSS..."
+    cmd: tailwindcss --config ./tailwind.config.js --input ./internal/web/static/css/tailwind.css --output ./internal/web/static/css/style.css --minify
 
   tidy:
     cmd: go mod tidy
