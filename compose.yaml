@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    ports:
+      - "8088:8088"
     volumes:
       - ./:/app
       - glo_vol_app_ssh:/root/.ssh
