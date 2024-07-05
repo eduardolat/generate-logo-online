@@ -1,4 +1,4 @@
-package pages
+package page
 
 import (
 	"github.com/labstack/echo/v4"
