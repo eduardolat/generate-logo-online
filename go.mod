@@ -3,6 +3,7 @@ module github.com/eduardolat/generate-logo
 go 1.22.5
 
 require (
+	github.com/eduardolat/gomponents-lucide v1.1.0
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/maragudk/gomponents v0.20.4
 	github.com/stretchr/testify v1.8.4
