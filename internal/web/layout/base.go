@@ -1,14 +1,15 @@
 package layout
 
 import (
+	"github.com/eduardolat/generate-logo/internal/web/alpine"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/components"
 	"github.com/maragudk/gomponents/html"
 )
 
 type BaseProps struct {
-	Title       string
-	MainContent gomponents.Node
+	Title string
+	Body  []gomponents.Node
 }
 
 func Base(props BaseProps) gomponents.Node {
@@ -32,6 +33,10 @@ func Base(props BaseProps) gomponents.Node {
 			),
 
 			html.Script(
+				html.Src("/js/app.js"),
+				html.Defer(),
+			),
+			html.Script(
 				html.Src("https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"),
 				html.Defer(),
 			),
@@ -41,7 +46,8 @@ func Base(props BaseProps) gomponents.Node {
 			),
 		},
 		Body: []gomponents.Node{
-			props.MainContent,
+			alpine.XData(`gloapp`),
+			gomponents.Group(props.Body),
 		},
 	})
 }

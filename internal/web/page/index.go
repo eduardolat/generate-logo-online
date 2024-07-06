@@ -17,11 +17,18 @@ func (h *handlers) indexHandler(c echo.Context) error {
 
 func indexPage() gomponents.Node {
 	return layout.Base(layout.BaseProps{
-		MainContent: html.Div(
-			html.H1(gomponents.Text("Hello, World!")),
-			html.Button(
-				lucide.Dog(),
+		Body: []gomponents.Node{
+			indexHeader(),
+
+			html.Main(
+				html.Class("normal-width"),
+				html.Div(
+					html.H1(gomponents.Text("Hello, World!")),
+					html.Button(
+						lucide.Dog(),
+					),
+				),
 			),
-		),
+		},
 	})
 }
