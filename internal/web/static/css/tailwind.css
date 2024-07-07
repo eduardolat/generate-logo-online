@@ -45,6 +45,6 @@ html {
 }
 
 /* For Gomponents Lucide */
-svg[data-glucide="icon"] {
+svg[data-glucide="icon"]:not([class*="size-"]) {
   @apply size-4;
 }
