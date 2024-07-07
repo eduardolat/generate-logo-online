@@ -1,7 +1,10 @@
-document.addEventListener('alpine:init', () => {
-  Alpine.data('gloapp', () => ({
+document.addEventListener("alpine:init", () => {
+  Alpine.data("gloapp", () => ({
+    isMobileEditorOpen: false,
+    editorTab: "icon", // icon, background
+
     init() {
-      console.log('✨ Generate Logo Online initialized!')
+      console.log("✨ Generate Logo Online initialized!")
     }
   }))
 })

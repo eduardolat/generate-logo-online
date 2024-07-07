@@ -17,7 +17,7 @@ func baseHeader() gomponents.Node {
 		html.Div(
 			html.Class("flex justify-start items-center space-x-2"),
 			html.Img(
-				html.Class("h-full max-h-[50px] w-auto"),
+				html.Class("h-full max-h-[50px] w-auto rounded"),
 				html.Src("/images/logo.svg"),
 			),
 			html.Span(
