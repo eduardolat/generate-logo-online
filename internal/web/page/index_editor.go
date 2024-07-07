@@ -27,8 +27,9 @@ func indexEditor() gomponents.Node {
 
 	return html.Aside(
 		components.Classes{
-			"w-full max-w-[250px] h-[calc(100dvh-100px)] bg-gray-50": true,
-			"flex flex-col": true,
+			"w-full max-w-[250px] bg-gray-50":                  true,
+			"h-[calc(100dvh-90px)] max-h-[calc(1080px-100px)]": true,
+			"flex-none flex flex-col":                          true,
 		},
 		html.Nav(
 			html.Ul(

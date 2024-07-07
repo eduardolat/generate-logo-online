@@ -18,8 +18,9 @@ func indexPage() gomponents.Node {
 	return layout.Base(layout.BaseProps{
 		Body: []gomponents.Node{
 			html.Main(
-				html.Class("normal-width"),
+				html.Class("normal-width flex space-x-2"),
 				indexEditor(),
+				indexPreview(),
 			),
 		},
 	})

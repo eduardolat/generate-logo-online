@@ -11,13 +11,13 @@ import (
 func baseHeader() gomponents.Node {
 	return html.Header(
 		components.Classes{
-			"normal-width h-[70px]":                       true,
+			"normal-width h-[60px]":                       true,
 			"flex justify-between items-center space-x-2": true,
 		},
 		html.Div(
 			html.Class("flex justify-start items-center space-x-2"),
 			html.Img(
-				html.Class("h-full max-h-[50px] w-auto rounded"),
+				html.Class("h-full max-h-[40px] w-auto rounded"),
 				html.Src("/images/logo.svg"),
 			),
 			html.Span(
