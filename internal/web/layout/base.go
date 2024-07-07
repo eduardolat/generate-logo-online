@@ -47,6 +47,7 @@ func Base(props BaseProps) gomponents.Node {
 		},
 		Body: []gomponents.Node{
 			alpine.XData(`gloapp`),
+			baseHeader(),
 			gomponents.Group(props.Body),
 		},
 	})

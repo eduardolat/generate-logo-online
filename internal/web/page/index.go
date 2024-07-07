@@ -18,8 +18,6 @@ func (h *handlers) indexHandler(c echo.Context) error {
 func indexPage() gomponents.Node {
 	return layout.Base(layout.BaseProps{
 		Body: []gomponents.Node{
-			indexHeader(),
-
 			html.Main(
 				html.Class("normal-width"),
 				html.Div(
