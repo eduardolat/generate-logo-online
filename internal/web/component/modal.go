@@ -122,7 +122,7 @@ func Modal(params ModalParams) ModalResult {
 					gomponents.If(
 						params.Title != "",
 						html.Span(
-							html.Class("h2"),
+							html.Class("text-xl font-bold desk:text-2xl"),
 							gomponents.Text(params.Title),
 						),
 					),
