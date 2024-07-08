@@ -66,10 +66,48 @@ document.addEventListener("alpine:init", () => {
       `
     },
 
-    get previewSvg() {
+    createSvg(size) {
       const icon = this.createSvgIcon(this.iconColor, this.iconSize, this.iconRotate)
       const bg = this.createBackground(this.bgColor, this.bgRadius)
-      return this.createParentSvg(this.previewSize, bg + icon)
+      return this.createParentSvg(size, bg + icon)
+    },
+
+    createSvgWhite(size) {
+      const icon = this.createSvgIcon("#ffffff", this.iconSize, this.iconRotate)
+      return this.createParentSvg(size, icon)
+    },
+
+    createSvgBlack(size) {
+      const icon = this.createSvgIcon("#000000", this.iconSize, this.iconRotate)
+      return this.createParentSvg(size, icon)
+    },
+
+    get previewSvg() {
+      return this.createSvg(this.previewSize)
+    },
+
+    get dlPreviewSvg() {
+      return this.createSvg("150px")
+    },
+
+    get dlPreviewSvgWhite() {
+      return this.createSvgWhite("150px")
+    },
+
+    get dlPreviewSvgBlack() {
+      return this.createSvgBlack("150px")
+    },
+
+    get finalSvg() {
+      return this.createSvg("500px")
+    },
+
+    get finalSvgWhite() {
+      return this.createSvgWhite("500px")
+    },
+
+    get finalSvgBlack() {
+      return this.createSvgBlack("500px")
     },
 
     startPreviewSizeCalc() {
