@@ -15,4 +15,5 @@ var (
 
 	ButtonTypeSubmit = buttonType{"submit"}
 	ButtonTypeButton = buttonType{"button"}
+	ButtonTypeReset  = buttonType{"reset"}
 )
