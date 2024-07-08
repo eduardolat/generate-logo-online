@@ -156,6 +156,8 @@ document.addEventListener("alpine:init", () => {
             } else {
               reject(new Error('Error creating PNG blob.'));
             }
+
+            canvas.remove();
           }, 'image/png');
         };
 
@@ -197,6 +199,7 @@ document.addEventListener("alpine:init", () => {
         link.click();
 
         URL.revokeObjectURL(link.href);
+        link.remove();
       });
     },
 
