@@ -99,18 +99,6 @@ document.addEventListener("alpine:init", () => {
       return this.createSvgBlack("150px")
     },
 
-    get finalSvg() {
-      return this.createSvg("500px")
-    },
-
-    get finalSvgWhite() {
-      return this.createSvgWhite("500px")
-    },
-
-    get finalSvgBlack() {
-      return this.createSvgBlack("500px")
-    },
-
     startPreviewSizeCalc() {
       const el = document.getElementById("preview-container")
       const calc = () => {
@@ -133,7 +121,7 @@ document.addEventListener("alpine:init", () => {
       return URL.createObjectURL(svgBlob)
     },
 
-    async svgToPngBlobUrl(svgContent) {
+    async svgToImageBlobUrl(svgContent, mimeType) {
       const url = this.svgToBlobUrl(svgContent)
 
       return new Promise((resolve, reject) => {
@@ -158,7 +146,7 @@ document.addEventListener("alpine:init", () => {
             }
 
             canvas.remove();
-          }, 'image/png');
+          }, mimeType);
         };
 
         img.onerror = function () {
@@ -167,6 +155,14 @@ document.addEventListener("alpine:init", () => {
 
         img.src = url;
       })
+    },
+
+    async svgToPngBlobUrl(svgContent) {
+      return this.svgToImageBlobUrl(svgContent, 'image/png')
+    },
+
+    async svgToIcoBlobUrl(svgContent) {
+      return this.svgToImageBlobUrl(svgContent, 'image/x-icon')
     },
 
     async downloadZippedLogos() {
@@ -178,19 +174,65 @@ document.addEventListener("alpine:init", () => {
         zip.file(name, blob);
       }
 
-      const finalSvg = this.svgToBlobUrl(this.finalSvg)
-      const finalSvgWhite = this.svgToBlobUrl(this.finalSvgWhite)
-      const finalSvgBlack = this.svgToBlobUrl(this.finalSvgBlack)
-      const finalPng = await this.svgToPngBlobUrl(this.finalSvg)
-      const finalPngWhite = await this.svgToPngBlobUrl(this.finalSvgWhite)
-      const finalPngBlack = await this.svgToPngBlobUrl(this.finalSvgBlack)
+      const filesToZip = [
+        { name: "svg/logo.svg", size: "512px", color: "default" },
+        { name: "svg/logo-white.svg", size: "512px", color: "white" },
+        { name: "svg/logo-black.svg", size: "512px", color: "black" },
 
-      await addToZip('logo.svg', finalSvg)
-      await addToZip('logo-white.svg', finalSvgWhite)
-      await addToZip('logo-black.svg', finalSvgBlack)
-      await addToZip('logo.png', finalPng)
-      await addToZip('logo-white.png', finalPngWhite)
-      await addToZip('logo-black.png', finalPngBlack)
+        { name: "png/logo-512.png", size: "512px", color: "default" },
+        { name: "png/logo-256.png", size: "256px", color: "default" },
+        { name: "png/logo-128.png", size: "128px", color: "default" },
+        { name: "png/logo-64.png", size: "64px", color: "default" },
+        { name: "png/logo-32.png", size: "32px", color: "default" },
+        { name: "png/logo-16.png", size: "16px", color: "default" },
+        { name: "png/logo-white-512.png", size: "512px", color: "white" },
+        { name: "png/logo-white-256.png", size: "256px", color: "white" },
+        { name: "png/logo-white-128.png", size: "128px", color: "white" },
+        { name: "png/logo-white-64.png", size: "64px", color: "white" },
+        { name: "png/logo-white-32.png", size: "32px", color: "white" },
+        { name: "png/logo-white-16.png", size: "16px", color: "white" },
+        { name: "png/logo-black-512.png", size: "512px", color: "black" },
+        { name: "png/logo-black-256.png", size: "256px", color: "black" },
+        { name: "png/logo-black-128.png", size: "128px", color: "black" },
+        { name: "png/logo-black-64.png", size: "64px", color: "black" },
+        { name: "png/logo-black-32.png", size: "32px", color: "black" },
+        { name: "png/logo-black-16.png", size: "16px", color: "black" },
+
+        { name: "ico/logo-64.ico", size: "64px", color: "default" },
+        { name: "ico/logo-32.ico", size: "32px", color: "default" },
+        { name: "ico/logo-16.ico", size: "16px", color: "default" },
+        { name: "ico/logo-white-64.ico", size: "64px", color: "white" },
+        { name: "ico/logo-white-32.ico", size: "32px", color: "white" },
+        { name: "ico/logo-white-16.ico", size: "16px", color: "white" },
+        { name: "ico/logo-black-64.ico", size: "64px", color: "black" },
+        { name: "ico/logo-black-32.ico", size: "32px", color: "black" },
+        { name: "ico/logo-black-16.ico", size: "16px", color: "black" }
+      ]
+
+      const getSvg = (size, color) => {
+        if (color === "default") return this.createSvg(size);
+        if (color === "white") return this.createSvgWhite(size);
+        if (color === "black") return this.createSvgBlack(size);
+      }
+
+      for await (const file of filesToZip) {
+        const svgStrig = getSvg(file.size, file.color)
+
+        if (file.name.includes(".svg")) {
+          const svg = this.svgToBlobUrl(svgStrig)
+          await addToZip(file.name, svg)
+        }
+
+        if (file.name.includes(".png")) {
+          const png = await this.svgToPngBlobUrl(svgStrig)
+          await addToZip(file.name, png)
+        }
+
+        if (file.name.includes(".ico")) {
+          const ico = await this.svgToIcoBlobUrl(svgStrig)
+          await addToZip(file.name, ico)
+        }
+      }
 
       zip.generateAsync({ type: 'blob' }).then(function (content) {
         const link = document.createElement('a');
