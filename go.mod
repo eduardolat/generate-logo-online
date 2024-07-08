@@ -4,6 +4,7 @@ go 1.22.5
 
 require (
 	github.com/eduardolat/gomponents-lucide v1.1.0
+	github.com/google/uuid v1.6.0
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/maragudk/gomponents v0.20.4
 	github.com/orsinium-labs/enum v1.4.0
