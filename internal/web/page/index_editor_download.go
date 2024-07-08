@@ -14,19 +14,35 @@ func indexEditorDownload() gomponents.Node {
 		Title: "Download your logo",
 		Content: []gomponents.Node{
 			html.Div(
-				html.Class("grid grid-cols-3 gap-2"),
+				html.Class("space-y-4"),
+
 				html.Div(
-					html.Class("flex justify-center"),
-					alpine.XHTML("dlPreviewSvg"),
+					html.Class("grid grid-cols-3 gap-2"),
+					html.Div(
+						html.Class("flex justify-center"),
+						alpine.XHTML("dlPreviewSvg"),
+					),
+					html.Div(
+						html.Class("flex justify-center"),
+						alpine.XHTML("dlPreviewSvgWhite"),
+					),
+					html.Div(
+						html.Class("flex justify-center"),
+						alpine.XHTML("dlPreviewSvgBlack"),
+					),
 				),
-				html.Div(
-					html.Class("flex justify-center"),
-					alpine.XHTML("dlPreviewSvgWhite"),
-				),
-				html.Div(
-					html.Class("flex justify-center"),
-					alpine.XHTML("dlPreviewSvgBlack"),
-				),
+
+				component.Button(component.ButtonParams{
+					Type:  component.ButtonTypeButton,
+					Color: component.ColorBlack,
+					Size:  component.SizeMd,
+					Block: true,
+					Children: []gomponents.Node{
+						alpine.XOn("click", "downloadZippedLogos"),
+						component.SpanText("Download"),
+						lucide.CloudDownload(html.Class("ml-1")),
+					},
+				}),
 			),
 		},
 	})

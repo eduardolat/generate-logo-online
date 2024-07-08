@@ -128,6 +128,78 @@ document.addEventListener("alpine:init", () => {
       }
     },
 
+    svgToBlobUrl(svgContent) {
+      const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' })
+      return URL.createObjectURL(svgBlob)
+    },
+
+    async svgToPngBlobUrl(svgContent) {
+      const url = this.svgToBlobUrl(svgContent)
+
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+
+        img.onload = function () {
+          URL.revokeObjectURL(url);
+
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+
+          canvas.toBlob(function (blob) {
+            if (blob) {
+              const pngUrl = URL.createObjectURL(blob);
+              resolve(pngUrl);
+            } else {
+              reject(new Error('Error creating PNG blob.'));
+            }
+          }, 'image/png');
+        };
+
+        img.onerror = function () {
+          reject(new Error('Error loading SVG image.'));
+        };
+
+        img.src = url;
+      })
+    },
+
+    async downloadZippedLogos() {
+      const zip = new JSZip();
+
+      const addToZip = async (name, blobUrl) => {
+        const response = await fetch(blobUrl);
+        const blob = await response.blob();
+        zip.file(name, blob);
+      }
+
+      const finalSvg = this.svgToBlobUrl(this.finalSvg)
+      const finalSvgWhite = this.svgToBlobUrl(this.finalSvgWhite)
+      const finalSvgBlack = this.svgToBlobUrl(this.finalSvgBlack)
+      const finalPng = await this.svgToPngBlobUrl(this.finalSvg)
+      const finalPngWhite = await this.svgToPngBlobUrl(this.finalSvgWhite)
+      const finalPngBlack = await this.svgToPngBlobUrl(this.finalSvgBlack)
+
+      await addToZip('logo.svg', finalSvg)
+      await addToZip('logo-white.svg', finalSvgWhite)
+      await addToZip('logo-black.svg', finalSvgBlack)
+      await addToZip('logo.png', finalPng)
+      await addToZip('logo-white.png', finalPngWhite)
+      await addToZip('logo-black.png', finalPngBlack)
+
+      zip.generateAsync({ type: 'blob' }).then(function (content) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = `logo-${Date.now()}.zip`;
+        link.click();
+
+        URL.revokeObjectURL(link.href);
+      });
+    },
+
     init() {
       this.startPreviewSizeCalc()
       console.log("✨ Generate Logo Online initialized!")
