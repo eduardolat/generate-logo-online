@@ -54,6 +54,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     createParentSvg(size, children) {
+      if (size <= 0) size = 0
       return `
         <svg
           xmlns="http://www.w3.org/2000/svg"
