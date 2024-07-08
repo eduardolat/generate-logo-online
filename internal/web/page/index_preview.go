@@ -3,7 +3,6 @@ package page
 import (
 	"github.com/eduardolat/generate-logo/internal/web/alpine"
 	"github.com/eduardolat/generate-logo/internal/web/component"
-	lucide "github.com/eduardolat/gomponents-lucide"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/components"
 	"github.com/maragudk/gomponents/html"
@@ -36,11 +35,31 @@ func indexPreview() gomponents.Node {
 }
 
 func indexPreviewLogo() gomponents.Node {
+
 	return html.Div(
 		alpine.XBind("style", "previewSizeStyle"),
-		html.Class("bg-red-50"),
-		lucide.Dog(
-			alpine.XBind("style", "previewSizeStyle"),
-		),
+		alpine.XHTML("previewSvg"),
+
+		// html.SVG(
+		// 	gomponents.Attr("xmlns", "http://www.w3.org/2000/svg"),
+		// 	gomponents.Attr("viewBox", "0 0 24 24"),
+		// 	html.Width("100%"),
+		// 	html.Height("100%"),
+		// 	// alpine.XBind("style", "backgroundStyle"),
+
+		// 	gomponents.El(
+		// 		"rect",
+		// 		html.Width("100%"),
+		// 		html.Height("100%"),
+		// 		gomponents.Attr("fill", "yellow"),
+		// 		gomponents.Attr("rx", "10%"),
+		// 	),
+
+		// 	lucide.Dog(
+		// 		html.Width("100%"),
+		// 		html.Height("100%"),
+		// 		// alpine.XBind("style", "iconStyle"),
+		// 	),
+		// ),
 	)
 }

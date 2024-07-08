@@ -46,7 +46,7 @@ func indexEditor() gomponents.Node {
 			),
 			alpine.Template(
 				alpine.XIf("editorTab == 'background'"),
-				indexEditorBackground(),
+				indexEditorBg(),
 			),
 		),
 		html.Div(
