@@ -19,7 +19,7 @@ func indexPreview() gomponents.Node {
 			"h-[calc(100dvh-90px)] max-h-[calc(1080px-90px)]":    true,
 		},
 		html.Div(
-			html.Class("absolute top-2 left-2"),
+			html.Class("absolute top-1 left-2"),
 			component.H2Text("Preview"),
 		),
 		html.Div(
