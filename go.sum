@@ -1,7 +1,7 @@
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/eduardolat/gomponents-lucide v1.1.0 h1:pWl4KT8ty9VyzcWZ8CfAdhaskrUIR8PaENwGPv5j1oY=
-github.com/eduardolat/gomponents-lucide v1.1.0/go.mod h1:C0Yx64QM2RXIal8pl/HdWU0xac0uek+IQI2eZAaeAwk=
+github.com/eduardolat/gomponents-lucide v1.2.0 h1:IzvsHfdfMjDF0c8aOxG7P0lawaSjwVLBo7z6VASOBbc=
+github.com/eduardolat/gomponents-lucide v1.2.0/go.mod h1:C0Yx64QM2RXIal8pl/HdWU0xac0uek+IQI2eZAaeAwk=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/labstack/echo/v4 v4.12.0 h1:IKpw49IMryVB2p1a4dzwlhP1O2Tf2E0Ir/450lH+kI0=
