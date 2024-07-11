@@ -30,6 +30,20 @@ document.addEventListener("alpine:init", () => {
       </svg>
     `,
 
+    setOriginalSVG(svg) {
+      this.originalSVG = svg
+
+      // Close the modal simulating the user pressing the Escape key
+      document.dispatchEvent(new KeyboardEvent('keyup', {
+        bubbles: true,
+        cancelable: true,
+        key: 'Escape',
+        code: 'Escape',
+        keyCode: 27,
+        which: 27
+      }))
+    },
+
     createBackground(bgColor, bgRadius) {
       return `
         <rect
