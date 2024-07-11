@@ -31,7 +31,11 @@ tasks:
       - task serve
 
   gen-css:
-    cmd: tailwindcss --config ./tailwind.config.js --input ./internal/web/static/css/tailwind.css --output ./internal/web/static/css/style.css --minify
+    cmd: >
+      export NODE_PATH=$(npm root -g) &&
+      tailwindcss --config ./tailwind.config.js
+      --input ./internal/web/static/css/tailwind.css
+      --output ./internal/web/static/css/style.css --minify
 
   tidy:
     cmd: go mod tidy

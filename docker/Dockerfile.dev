@@ -29,12 +29,6 @@ RUN wget https://github.com/go-task/task/releases/download/v3.37.2/task_linux_am
     mv ./task /usr/local/bin/task && \
     chmod 777 /usr/local/bin/task
 
-# Install tailwindcss standalone binary
-# https://tailwindcss.com/blog/standalone-cli
-RUN wget https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.4/tailwindcss-linux-x64 && \
-    mv ./tailwindcss-linux-x64 /usr/local/bin/tailwindcss && \
-    chmod 777 /usr/local/bin/tailwindcss
-
 # Install GitHub CLI
 RUN wget https://github.com/cli/cli/releases/download/v2.52.0/gh_2.52.0_linux_amd64.tar.gz && \
     tar -xzf gh_2.52.0_linux_amd64.tar.gz && \
@@ -48,7 +42,9 @@ RUN wget https://github.com/cosmtrek/air/releases/download/v1.52.3/air_1.52.3_li
     chmod 777 /usr/local/bin/air
 
 # Install node utilities
-RUN npm install --global cloc@2.0.0-cloc
+RUN npm install --global cloc@2.0.0-cloc && \
+    npm install --global tailwindcss@3.4.4 && \
+    npm install --global @tailwindcss/forms@0.5.7
 
 # Delete the temporary directory and go to the app directory
 RUN rm -rf /app/temp
