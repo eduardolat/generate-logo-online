@@ -11,7 +11,6 @@ import (
 func indexPreview() gomponents.Node {
 	return html.Div(
 		html.ID("preview-container"),
-
 		components.Classes{
 			"pattern-paper rounded flex-grow w-full select-none": true,
 			"relative border border-gray-300":                    true,
@@ -22,8 +21,6 @@ func indexPreview() gomponents.Node {
 			component.H2Text("Preview"),
 		),
 		html.Div(
-			html.ID("preview-container"),
-
 			components.Classes{
 				"absolute w-full h-full top-0 left-0": true,
 				"flex justify-center items-center":    true,
