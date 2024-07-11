@@ -12,9 +12,9 @@ import (
 func spinner(size size) gomponents.Node {
 	return lucide.LoaderCircle(components.Classes{
 		"animate-spin inline-block": true,
-		"w-5 h-5":                   size == SizeSm,
-		"w-8 h-8":                   size == SizeMd,
-		"w-12 h-12":                 size == SizeLg,
+		"size-5":                    size == SizeSm,
+		"size-8":                    size == SizeMd,
+		"size-12":                   size == SizeLg,
 	})
 }
 

@@ -99,7 +99,7 @@ func Modal(params ModalParams) ModalResult {
 				"max-w-[calc(100dvw-30px)] max-h-[85dvh]": true,
 				"bg-white rounded overflow-y-auto":        true,
 				"overflow-x-hidden whitespace-normal":     true,
-				"bg-base-100 p-0":                         true,
+				"bg-white p-0":                            true,
 
 				"w-[400px]": size == SizeSm,
 				"w-[600px]": size == SizeMd,
@@ -108,9 +108,9 @@ func Modal(params ModalParams) ModalResult {
 
 			html.Div(
 				components.Classes{
-					"w-full sticky top-0 right-0 bg-base-100": true,
-					"flex items-center justify-between":       true,
-					"border-b border-base-300 px-4 py-3":      true,
+					"w-full sticky top-0 right-0 bg-white": true,
+					"flex items-center justify-between":    true,
+					"border-b border-gray-300 px-4 py-3":   true,
 				},
 
 				html.Div(
