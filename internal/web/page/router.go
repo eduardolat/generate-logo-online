@@ -10,4 +10,5 @@ func MountRouter(parent *echo.Group) {
 	h := handlers{}
 
 	parent.GET("/", h.indexHandler)
+	parent.GET("/icons", h.searchIconHandler)
 }

@@ -3,6 +3,7 @@ package page
 import (
 	"github.com/eduardolat/generate-logo/internal/web/alpine"
 	"github.com/eduardolat/generate-logo/internal/web/component"
+	"github.com/eduardolat/generate-logo/internal/web/htmx"
 	lucide "github.com/eduardolat/gomponents-lucide"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
@@ -22,6 +23,34 @@ func indexEditorIconPicker() gomponents.Node {
 		Size:          component.SizeMd,
 		Title:         "Pick an icon",
 		HTMXIndicator: "icon-picker-indicator",
+		Content: []gomponents.Node{
+			html.Div(
+				html.Class("space-y-4 h-full"),
+
+				component.Input(component.InputParams{
+					Name:        "q",
+					Type:        component.InputTypeText,
+					Color:       component.ColorBlack,
+					Placeholder: "Search for an icon",
+					Block:       true,
+					Children: []gomponents.Node{
+						htmx.HxGet("/icons"),
+						htmx.HxTrigger("input changed delay:500ms, search"),
+						htmx.HxTarget("#icon-picker-results"),
+						htmx.HxIndicator("#icon-picker-indicator"),
+					},
+				}),
+
+				html.Div(
+					html.ID("icon-picker-results"),
+					htmx.HxGet("/icons"),
+					htmx.HxTrigger("intersect once"),
+					htmx.HxIndicator("#icon-picker-indicator"),
+
+					component.SpinnerContainerLg(),
+				),
+			),
+		},
 	})
 
 	button := component.Button(component.ButtonParams{
