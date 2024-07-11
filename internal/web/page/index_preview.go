@@ -25,15 +25,10 @@ func indexPreview() gomponents.Node {
 				"absolute w-full h-full top-0 left-0": true,
 				"flex justify-center items-center":    true,
 			},
-
-			indexPreviewLogo(),
+			html.Div(
+				alpine.XBind("style", "previewSizeStyle"),
+				alpine.XHTML("previewSvg"),
+			),
 		),
-	)
-}
-
-func indexPreviewLogo() gomponents.Node {
-	return html.Div(
-		alpine.XBind("style", "previewSizeStyle"),
-		alpine.XHTML("previewSvg"),
 	)
 }
