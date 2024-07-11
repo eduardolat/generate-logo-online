@@ -40,12 +40,12 @@ func indexEditor() gomponents.Node {
 		),
 		html.Div(
 			html.Class("flex-grow p-2 border border-y-0 border-gray-300"),
-			alpine.Template(
-				alpine.XIf("editorTab == 'icon'"),
+			html.Div(
+				alpine.XShow("editorTab == 'icon'"),
 				indexEditorIcon(),
 			),
-			alpine.Template(
-				alpine.XIf("editorTab == 'background'"),
+			html.Div(
+				alpine.XShow("editorTab == 'background'"),
 				indexEditorBg(),
 			),
 		),
