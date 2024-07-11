@@ -35,7 +35,6 @@ func indexPreview() gomponents.Node {
 }
 
 func indexPreviewLogo() gomponents.Node {
-
 	return html.Div(
 		alpine.XBind("style", "previewSizeStyle"),
 		alpine.XHTML("previewSvg"),
