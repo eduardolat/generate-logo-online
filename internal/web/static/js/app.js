@@ -14,6 +14,7 @@ document.addEventListener("alpine:init", () => {
     bgGradientType: "linear", // linear, radial
     bgGradientAngle: "0",
     bgGradientCutLine: "50",
+    bgGradientBlur: "50",
     bgRadius: "10",
 
     originalSVG: `
@@ -52,7 +53,7 @@ document.addEventListener("alpine:init", () => {
 
     createBackground(
       bgType, bgColor, bgRadius, bgGradientStart, bgGradientEnd,
-      bgGradientType, bgGradientAngle, bgGradientCutLine
+      bgGradientType, bgGradientAngle, bgGradientCutLine, bgGradientBlur
     ) {
       if (bgType === "solid") {
         return `
@@ -68,14 +69,30 @@ document.addEventListener("alpine:init", () => {
       }
 
       if (bgType === "gradient") {
-        const gradID = `grad-bg-${crypto.randomUUID()}`
+        const gradID = `grad-bg-${crypto.randomUUID()}`;
         let gradient;
 
+        // Normalize bgGradientCutLine and bgGradientBlur to values between 0 and 1
+        const cutLine = bgGradientCutLine / 100;
+        const blur = bgGradientBlur / 100;
+
+        // Calculate the stop points for the gradient
+        const startStop = Math.max(0, cutLine - blur / 2);
+        const endStop = Math.min(1, cutLine + blur / 2);
+
         if (bgGradientType === "linear") {
+          const angleRad = (bgGradientAngle - 90) * (Math.PI / 180);
+          const x1 = 50 + Math.cos(angleRad) * 50;
+          const y1 = 50 + Math.sin(angleRad) * 50;
+          const x2 = 50 - Math.cos(angleRad) * 50;
+          const y2 = 50 - Math.sin(angleRad) * 50;
+
           gradient = `
-            <linearGradient id="${gradID}" x1="0%" y1="0%" x2="${bgGradientAngle}%" y2="${bgGradientCutLine}%">
-              <stop offset="0%" stop-color="${bgGradientStart}" stop-opacity="1" />
-              <stop offset="100%" stop-color="${bgGradientEnd}" stop-opacity="1" />
+            <linearGradient id="${gradID}" x1="${x1}%" y1="${y1}%" x2="${x2}%" y2="${y2}%">
+              <stop offset="0%" stop-color="${bgGradientStart}" />
+              <stop offset="${startStop * 100}%" stop-color="${bgGradientStart}" />
+              <stop offset="${endStop * 100}%" stop-color="${bgGradientEnd}" />
+              <stop offset="100%" stop-color="${bgGradientEnd}" />
             </linearGradient>
           `;
         }
@@ -83,8 +100,10 @@ document.addEventListener("alpine:init", () => {
         if (bgGradientType === "radial") {
           gradient = `
             <radialGradient id="${gradID}" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-              <stop offset="0%" stop-color="${bgGradientStart}" stop-opacity="1" />
-              <stop offset="100%" stop-color="${bgGradientEnd}" stop-opacity="1" />
+              <stop offset="0%" stop-color="${bgGradientStart}" />
+              <stop offset="${startStop * 100}%" stop-color="${bgGradientStart}" />
+              <stop offset="${endStop * 100}%" stop-color="${bgGradientEnd}" />
+              <stop offset="100%" stop-color="${bgGradientEnd}" />
             </radialGradient>
           `;
         }
@@ -136,7 +155,8 @@ document.addEventListener("alpine:init", () => {
         this.bgGradientEnd,
         this.bgGradientType,
         this.bgGradientAngle,
-        this.bgGradientCutLine
+        this.bgGradientCutLine,
+        this.bgGradientBlur
       );
       return this.createParentSvg(size, bg + icon);
     },
