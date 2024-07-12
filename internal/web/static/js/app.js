@@ -315,6 +315,7 @@ document.addEventListener("alpine:init", () => {
     init() {
       this.startPreviewSizeCalc()
       console.log("✨ Generate Logo Online initialized!")
+      console.log("Star on GitHub: https://github.com/eduardolat/generate-logo")
     }
   }))
 })
