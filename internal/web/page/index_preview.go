@@ -26,7 +26,6 @@ func indexPreview() gomponents.Node {
 				"flex justify-center items-center":    true,
 			},
 			html.Div(
-				alpine.XBind("style", "previewSizeStyle"),
 				alpine.XHTML("previewSvg"),
 			),
 		),
