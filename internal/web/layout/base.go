@@ -48,6 +48,9 @@ func Base(props BaseProps) gomponents.Node {
 				html.Src("https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"),
 				html.Defer(),
 			),
+			html.Script(
+				html.Src("https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"),
+			),
 		},
 		Body: []gomponents.Node{
 			alpine.XData(`gloapp`),

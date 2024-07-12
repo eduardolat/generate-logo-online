@@ -30,6 +30,9 @@ func baseHeader() gomponents.Node {
 			html.Ul(
 				html.Class("text-xl flex justify-end items-center space-x-2"),
 				html.Li(
+					switchThemeButton(),
+				),
+				html.Li(
 					html.A(
 						html.Class("flex items-center space-x-1 hover:underline"),
 						html.Href("https://x.com/eduardoolat"),
@@ -49,5 +52,15 @@ func baseHeader() gomponents.Node {
 				),
 			),
 		),
+	)
+}
+
+func switchThemeButton() gomponents.Node {
+	return html.Select(
+		gomponents.Attr("data-choose-theme", ""),
+		html.Class("select select-bordered select-sm"),
+		html.Option(html.Value(""), gomponents.Text("System theme")),
+		html.Option(html.Value("light"), gomponents.Text("Light theme")),
+		html.Option(html.Value("dark"), gomponents.Text("Dark theme")),
 	)
 }
