@@ -30,6 +30,14 @@ document.addEventListener("alpine:init", () => {
     };
   }
 
+  function minifySvg(svgContent) {
+    return svgContent
+      .replace(/\n/g, '')
+      .replace(/>\s+</g, '><')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  }
+
   Alpine.data("gloapp", () => ({
     editorTab: "icon", // icon, background
     previewSize: 0,
@@ -67,7 +75,7 @@ document.addEventListener("alpine:init", () => {
       this.bgGradientCutLine = "50"
       this.bgGradientBlur = "50"
 
-      this.originalSVG = `
+      this.originalSVG = minifySvg(`
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -85,7 +93,7 @@ document.addEventListener("alpine:init", () => {
           <path d="M4 17v2" />
           <path d="M5 18H3" />
         </svg>
-      `
+      `)
 
       this.storeValues()
     },
@@ -190,7 +198,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     setOriginalSVG(svg) {
-      this.originalSVG = svg
+      this.originalSVG = minifySvg(svg)
 
       // Close the modal simulating the user pressing the Escape key
       document.dispatchEvent(new KeyboardEvent('keyup', {
@@ -465,7 +473,7 @@ document.addEventListener("alpine:init", () => {
 
       try {
         await Promise.all(filesToZip.map(async (file) => {
-          const svgString = getSvg(file.size, file.color);
+          const svgString = minifySvg(getSvg(file.size, file.color));
           let blobUrl;
 
           if (file.name.includes(".svg")) {
