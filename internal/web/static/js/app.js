@@ -1,4 +1,23 @@
 document.addEventListener("alpine:init", () => {
+  const queryParamKey = "data"
+  const localStorageKey = "gloAppData"
+  const keysToWatch = [
+    "editorTab",
+    "iconColor",
+    "iconSize",
+    "iconRotate",
+    "bgType",
+    "bgRadius",
+    "bgColor",
+    "bgGradientStart",
+    "bgGradientEnd",
+    "bgGradientType",
+    "bgGradientAngle",
+    "bgGradientCutLine",
+    "bgGradientBlur",
+    "originalSVG"
+  ]
+
   Alpine.data("gloapp", () => ({
     editorTab: "icon", // icon, background
     previewSize: 0,
@@ -55,6 +74,107 @@ document.addEventListener("alpine:init", () => {
           <path d="M5 18H3" />
         </svg>
       `
+
+      this.storeValues()
+    },
+
+    loadValues() {
+      // Load from query parameter
+      const queryParams = new URLSearchParams(window.location.search);
+      const encodedData = queryParams.get(queryParamKey);
+      let queryData = {};
+      if (encodedData) {
+        try {
+          queryData = JSON.parse(atob(encodedData));
+        } catch (e) {
+          alert("Error parsing query parameter data:", e);
+          this.setDefaultValues();
+          return;
+        }
+      }
+
+      const hasQueryData = Object.keys(queryData).length > 0;
+      const useQueryData = () => {
+        for (const key of keysToWatch) {
+          if (queryData[key]) {
+            this[key] = queryData[key];
+          }
+        }
+        this.storeValues();
+      };
+
+      // Load from localStorage
+      const savedData = localStorage.getItem(localStorageKey);
+      let localStorageData = {};
+      if (savedData) {
+        try {
+          localStorageData = JSON.parse(savedData);
+        } catch (e) {
+          alert("Error parsing localStorage data:", e);
+          this.setDefaultValues();
+          return;
+        }
+      }
+
+      const hasLocalStorageData = Object.keys(localStorageData).length > 0;
+      const useLocalStorageData = () => {
+        for (const key of keysToWatch) {
+          if (localStorageData[key]) {
+            this[key] = localStorageData[key];
+          }
+        }
+        this.storeValues();
+      };
+
+      // If both query and localStorage are empty, set default values
+      if (!hasQueryData && !hasLocalStorageData) {
+        this.setDefaultValues();
+        return;
+      }
+
+      // If query is empty and localStorage has values, use the localStorage values
+      if (!hasQueryData && hasLocalStorageData) {
+        useLocalStorageData();
+        return;
+      }
+
+      // If query has values and localStorage is empty, use the query values
+      if (hasQueryData && !hasLocalStorageData) {
+        useQueryData();
+        return;
+      }
+
+      // If query and localStorage are different, ask which one to use
+      const areEqual = JSON.stringify(queryData) === JSON.stringify(localStorageData);
+      if (areEqual) {
+        useLocalStorageData();
+        return;
+      }
+
+      const useQuery = confirm("Do you want to use the settings from the URL? Local settings will be lost.");
+      if (useQuery) {
+        useQueryData();
+      } else {
+        useLocalStorageData();
+      }
+    },
+
+    storeValues() {
+      const dataToSave = {};
+
+      for (const key of keysToWatch) {
+        dataToSave[key] = this[key];
+      }
+
+      // Save to localStorage
+      localStorage.setItem(localStorageKey, JSON.stringify(dataToSave));
+
+      // Update URL query params
+      const encodedData = btoa(JSON.stringify(dataToSave));
+      const queryParams = new URLSearchParams(window.location.search);
+      queryParams.set(queryParamKey, encodedData);
+      const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+      window.history.replaceState({}, '', newUrl);
     },
 
     setOriginalSVG(svg) {
@@ -360,8 +480,13 @@ document.addEventListener("alpine:init", () => {
     },
 
     init() {
+      this.loadValues()
       this.startPreviewSizeCalc()
-      this.setDefaultValues()
+
+      for (const key of keysToWatch) {
+        this.$watch(key, () => this.storeValues())
+      }
+
       console.log("✨ Generate Logo Online initialized!")
       console.log("Star on GitHub: https://github.com/eduardolat/generate-logo")
     }
