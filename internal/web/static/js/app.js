@@ -99,7 +99,7 @@ document.addEventListener("alpine:init", () => {
         try {
           queryData = JSON.parse(atob(encodedData));
         } catch (e) {
-          alert("Error parsing query parameter data:", e);
+          console.error("Error parsing query parameter data:", e);
           this.setDefaultValues();
           return;
         }
@@ -122,7 +122,7 @@ document.addEventListener("alpine:init", () => {
         try {
           localStorageData = JSON.parse(savedData);
         } catch (e) {
-          alert("Error parsing localStorage data:", e);
+          console.error("Error parsing localStorage data:", e);
           this.setDefaultValues();
           return;
         }
@@ -341,6 +341,11 @@ document.addEventListener("alpine:init", () => {
 
     startPreviewSizeCalc() {
       const el = document.getElementById("preview-container")
+      if (!el) {
+        console.error("Element with id 'preview-container' not found.");
+        return;
+      }
+
       const calc = () => {
         const width = el.offsetWidth
         const height = el.offsetHeight
@@ -348,11 +353,9 @@ document.addEventListener("alpine:init", () => {
         this.previewSize = size
       }
 
-      if (el) {
-        calc()
-        const resizeObserver = new ResizeObserver(() => calc())
-        resizeObserver.observe(el)
-      }
+      calc();
+      const resizeObserver = new ResizeObserver(() => calc())
+      resizeObserver.observe(el)
     },
 
     svgToBlobUrl(svgContent) {
@@ -413,7 +416,7 @@ document.addEventListener("alpine:init", () => {
           const blob = await response.blob();
           zip.file(name, blob);
         } catch (error) {
-          alert(`Error adding ${name} to zip:`, error);
+          console.error(`Error adding ${name} to zip:`, error);
         } finally {
           URL.revokeObjectURL(blobUrl);
         }
@@ -487,7 +490,7 @@ document.addEventListener("alpine:init", () => {
         URL.revokeObjectURL(link.href);
         link.remove();
       } catch (error) {
-        alert("Error generating zip file:", error);
+        console.error("Error generating zip file:", error);
       }
     },
 
