@@ -18,6 +18,18 @@ document.addEventListener("alpine:init", () => {
     "originalSVG"
   ]
 
+  function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
   Alpine.data("gloapp", () => ({
     editorTab: "icon", // icon, background
     previewSize: 0,
@@ -483,8 +495,9 @@ document.addEventListener("alpine:init", () => {
       this.loadValues()
       this.startPreviewSizeCalc()
 
+      const debouncedStoreValues = debounce(() => this.storeValues(), 300);
       for (const key of keysToWatch) {
-        this.$watch(key, () => this.storeValues())
+        this.$watch(key, () => debouncedStoreValues())
       }
 
       console.log("✨ Generate Logo Online initialized!")
