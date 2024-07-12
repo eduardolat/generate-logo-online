@@ -51,7 +51,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     createBackground(
-      bgIdPrefix, bgType, bgColor, bgRadius, bgGradientStart, bgGradientEnd,
+      bgType, bgColor, bgRadius, bgGradientStart, bgGradientEnd,
       bgGradientType, bgGradientAngle, bgGradientCutLine
     ) {
       if (bgType === "solid") {
@@ -68,12 +68,12 @@ document.addEventListener("alpine:init", () => {
       }
 
       if (bgType === "gradient") {
-        const bgId = `${bgIdPrefix}-grad-bg-${Date.now()}`
+        const gradID = `grad-bg-${crypto.randomUUID()}`
         let gradient;
 
         if (bgGradientType === "linear") {
           gradient = `
-            <linearGradient id="${bgId}" x1="0%" y1="0%" x2="${bgGradientAngle}%" y2="${bgGradientCutLine}%">
+            <linearGradient id="${gradID}" x1="0%" y1="0%" x2="${bgGradientAngle}%" y2="${bgGradientCutLine}%">
               <stop offset="0%" stop-color="${bgGradientStart}" stop-opacity="1" />
               <stop offset="100%" stop-color="${bgGradientEnd}" stop-opacity="1" />
             </linearGradient>
@@ -82,7 +82,7 @@ document.addEventListener("alpine:init", () => {
 
         if (bgGradientType === "radial") {
           gradient = `
-            <radialGradient id="${bgId}" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <radialGradient id="${gradID}" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
               <stop offset="0%" stop-color="${bgGradientStart}" stop-opacity="1" />
               <stop offset="100%" stop-color="${bgGradientEnd}" stop-opacity="1" />
             </radialGradient>
@@ -92,7 +92,7 @@ document.addEventListener("alpine:init", () => {
         return `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <defs>${gradient}</defs>
-            <rect width="100%" height="100%" fill="url(#${bgId})" rx="${bgRadius}%" />
+            <rect width="100%" height="100%" fill="url(#${gradID})" rx="${bgRadius}%" />
           </svg>
         `;
       }
@@ -126,10 +126,9 @@ document.addEventListener("alpine:init", () => {
       `
     },
 
-    createSvg(bgIdPrefix, size) {
+    createSvg(size) {
       const icon = this.createSvgIcon(this.iconColor, this.iconSize, this.iconRotate);
       const bg = this.createBackground(
-        bgIdPrefix,
         this.bgType,
         this.bgColor,
         this.bgRadius,
@@ -153,11 +152,11 @@ document.addEventListener("alpine:init", () => {
     },
 
     get previewSvg() {
-      return this.createSvg("prev", this.previewSize);
+      return this.createSvg(this.previewSize);
     },
 
     get dlPreviewSvg() {
-      return this.createSvg("dl-prev", "150px")
+      return this.createSvg("150px")
     },
 
     get dlPreviewSvgWhite() {
@@ -278,7 +277,7 @@ document.addEventListener("alpine:init", () => {
       ]
 
       const getSvg = (size, color) => {
-        if (color === "default") return this.createSvg("fn", size);
+        if (color === "default") return this.createSvg(size);
         if (color === "white") return this.createSvgWhite(size);
         if (color === "black") return this.createSvgBlack(size);
       }
