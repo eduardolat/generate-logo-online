@@ -41,10 +41,10 @@ RUN wget https://github.com/cosmtrek/air/releases/download/v1.52.3/air_1.52.3_li
     mv ./air /usr/local/bin/air && \
     chmod 777 /usr/local/bin/air
 
-# Install node utilities
+# Install node packages
 RUN npm install --global cloc@2.0.0-cloc && \
     npm install --global tailwindcss@3.4.4 && \
-    npm install --global @tailwindcss/forms@0.5.7
+    npm install --global daisyui@4.12.10
 
 # Delete the temporary directory and go to the app directory
 RUN rm -rf /app/temp
