@@ -111,5 +111,17 @@ func indexEditorBgGradient() gomponents.Node {
 				alpine.XModel("bgGradientCutLine"),
 			),
 		),
+		html.Div(
+			html.Label(html.For("bgGradientBlur"), component.SpanText("Gradient blur:")),
+			html.Input(
+				html.ID("bgGradientBlur"),
+				html.Type("range"),
+				html.Min("0"),
+				html.Max("100"),
+				html.Step("1"),
+				html.Class("w-full"),
+				alpine.XModel("bgGradientBlur"),
+			),
+		),
 	)
 }
