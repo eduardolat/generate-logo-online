@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./internal/web/**/*.go'],
-  plugins: [
-    // https://github.com/tailwindlabs/tailwindcss-forms
-    require('@tailwindcss/forms'),
-  ],
+  plugins: [require('daisyui')],
+  daisyui: {
+    logs: false,
+  },
   theme: {
     screens: {
       'desk': '768px', // only one breakpoint to keep it simple
