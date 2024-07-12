@@ -217,14 +217,12 @@ document.addEventListener("alpine:init", () => {
     ) {
       if (bgType === "solid") {
         return `
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-            <rect
-              width="100%"
-              height="100%"
-              fill="${bgColor}"
-              rx="${bgRadius}%"
-            ></rect>
-          </svg>
+          <rect
+            width="100%"
+            height="100%"
+            fill="${bgColor}"
+            rx="${bgRadius}%"
+          ></rect>
         `;
       }
 
@@ -269,10 +267,8 @@ document.addEventListener("alpine:init", () => {
         }
 
         return `
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-            <defs>${gradient}</defs>
-            <rect width="100%" height="100%" fill="url(#${gradID})" rx="${bgRadius}%" />
-          </svg>
+          <defs>${gradient}</defs>
+          <rect width="100%" height="100%" fill="url(#${gradID})" rx="${bgRadius}%" />
         `;
       }
 
