@@ -11,7 +11,7 @@ import (
 func baseHeader() gomponents.Node {
 	return html.Header(
 		components.Classes{
-			"normal-width h-[60px]":                       true,
+			"normal-width h-[60px] bg-base-100":           true,
 			"flex justify-between items-center space-x-2": true,
 		},
 		html.Div(

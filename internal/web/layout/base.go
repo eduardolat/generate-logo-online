@@ -52,7 +52,7 @@ func Base(props BaseProps) gomponents.Node {
 		Body: []gomponents.Node{
 			alpine.XData(`gloapp`),
 			alpine.XCloak(),
-			html.Class("space-y-2"),
+			html.Class("space-y-2 bg-base-100"),
 			baseHeader(),
 			gomponents.Group(props.Body),
 		},

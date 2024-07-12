@@ -13,7 +13,7 @@ func indexPreview() gomponents.Node {
 		html.ID("preview-container"),
 		components.Classes{
 			"pattern-paper rounded flex-grow w-full select-none": true,
-			"relative border border-gray-300":                    true,
+			"relative border border-base-300":                    true,
 			"h-[calc(100dvh-90px)] max-h-[calc(1080px-90px)]":    true,
 		},
 		html.Div(

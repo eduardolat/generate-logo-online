@@ -14,7 +14,7 @@ func indexEditor() gomponents.Node {
 			alpine.XBind("class", "editorTab == '"+tab+"' ? 'active' : 'inactive'"),
 			components.Classes{
 				"text-center py-2 cursor-pointer":  true,
-				"font-bold border border-gray-300": true,
+				"font-bold border border-base-300": true,
 				"rounded-tl":                       pos == "left",
 				"rounded-tr":                       pos == "right",
 				"[&.active]:border-black":          true,
@@ -27,7 +27,7 @@ func indexEditor() gomponents.Node {
 
 	return html.Aside(
 		components.Classes{
-			"w-full max-w-[250px] bg-gray-50":                  true,
+			"w-full max-w-[250px] bg-base-100":                 true,
 			"h-[calc(100dvh-90px)] max-h-[calc(1080px-100px)]": true,
 			"flex-none flex flex-col":                          true,
 		},
@@ -39,7 +39,7 @@ func indexEditor() gomponents.Node {
 			),
 		),
 		html.Div(
-			html.Class("flex-grow p-2 border border-y-0 border-gray-300"),
+			html.Class("flex-grow p-2 border border-y-0 border-base-300"),
 			html.Div(
 				alpine.XShow("editorTab == 'icon'"),
 				indexEditorIcon(),
