@@ -276,9 +276,15 @@ document.addEventListener("alpine:init", () => {
       const zip = new JSZip();
 
       const addToZip = async (name, blobUrl) => {
-        const response = await fetch(blobUrl);
-        const blob = await response.blob();
-        zip.file(name, blob);
+        try {
+          const response = await fetch(blobUrl);
+          const blob = await response.blob();
+          zip.file(name, blob);
+        } catch (error) {
+          alert(`Error adding ${name} to zip:`, error);
+        } finally {
+          URL.revokeObjectURL(blobUrl);
+        }
       }
 
       const filesToZip = [
@@ -322,26 +328,25 @@ document.addEventListener("alpine:init", () => {
         if (color === "black") return this.createSvgBlack(size);
       }
 
-      for await (const file of filesToZip) {
-        const svgStrig = getSvg(file.size, file.color)
+      try {
+        await Promise.all(filesToZip.map(async (file) => {
+          const svgString = getSvg(file.size, file.color);
+          let blobUrl;
 
-        if (file.name.includes(".svg")) {
-          const svg = this.svgToBlobUrl(svgStrig)
-          await addToZip(file.name, svg)
-        }
+          if (file.name.includes(".svg")) {
+            blobUrl = this.svgToBlobUrl(svgString);
+          } else if (file.name.includes(".png")) {
+            blobUrl = await this.svgToPngBlobUrl(svgString);
+          } else if (file.name.includes(".ico")) {
+            blobUrl = await this.svgToIcoBlobUrl(svgString);
+          }
 
-        if (file.name.includes(".png")) {
-          const png = await this.svgToPngBlobUrl(svgStrig)
-          await addToZip(file.name, png)
-        }
+          if (blobUrl) {
+            await addToZip(file.name, blobUrl);
+          }
+        }));
 
-        if (file.name.includes(".ico")) {
-          const ico = await this.svgToIcoBlobUrl(svgStrig)
-          await addToZip(file.name, ico)
-        }
-      }
-
-      zip.generateAsync({ type: 'blob' }).then(function (content) {
+        const content = await zip.generateAsync({ type: 'blob' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(content);
         link.download = `logo-${Date.now()}.zip`;
@@ -349,7 +354,9 @@ document.addEventListener("alpine:init", () => {
 
         URL.revokeObjectURL(link.href);
         link.remove();
-      });
+      } catch (error) {
+        alert("Error generating zip file:", error);
+      }
     },
 
     init() {
