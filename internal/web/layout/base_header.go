@@ -18,7 +18,7 @@ func baseHeader() gomponents.Node {
 		html.Div(
 			html.Class("flex justify-start items-center space-x-2"),
 			html.Img(
-				html.Class("h-full max-h-[40px] w-auto rounded"),
+				html.Class("h-full max-h-[40px] w-auto rounded-btn"),
 				html.Src("/images/logo.svg"),
 			),
 			html.Span(
@@ -35,19 +35,19 @@ func baseHeader() gomponents.Node {
 				),
 				html.Li(
 					html.A(
-						html.Class("flex items-center space-x-1 hover:underline"),
+						html.Class("btn btn-neutral space-x-1"),
 						html.Href("https://x.com/eduardoolat"),
 						html.Target("_blank"),
-						lucide.Twitter(html.Class("size-6")),
+						lucide.Twitter(),
 						component.SpanText("X (Twitter)"),
 					),
 				),
 				html.Li(
 					html.A(
-						html.Class("flex items-center space-x-1 hover:underline"),
+						html.Class("btn btn-neutral space-x-1"),
 						html.Href("https://github.com/eduardolat/generate-logo"),
 						html.Target("_blank"),
-						lucide.Github(html.Class("size-6")),
+						lucide.Github(),
 						component.SpanText("GitHub"),
 					),
 				),
@@ -81,11 +81,11 @@ func switchThemeButton() gomponents.Node {
 		alpine.XOn("click", "getCurrentTheme()"),
 		alpine.XOn("click.outside", "getCurrentTheme()"),
 
-		html.Class("dropdown"),
+		html.Class("dropdown dropdown-end"),
 		html.Div(
 			html.TabIndex("0"),
 			html.Role("button"),
-			html.Class("btn m-1 space-x-1"),
+			html.Class("btn btn-neutral space-x-1"),
 
 			html.Div(
 				html.Class("inline-block size-4"),
@@ -99,7 +99,9 @@ func switchThemeButton() gomponents.Node {
 		),
 		html.Ul(
 			html.TabIndex("0"),
-			html.Class("dropdown-content bg-base-300 rounded z-[1] w-52 p-2 space-y-2"),
+			html.Class(
+				"dropdown-content bg-base-300 rounded z-[1] w-[150px] p-2 space-y-2 mt-2",
+			),
 			html.Li(
 				html.Button(
 					html.Data("set-theme", ""),
