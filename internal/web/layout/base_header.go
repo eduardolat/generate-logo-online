@@ -1,6 +1,7 @@
 package layout
 
 import (
+	"github.com/eduardolat/generate-logo/internal/web/alpine"
 	"github.com/eduardolat/generate-logo/internal/web/component"
 	lucide "github.com/eduardolat/gomponents-lucide"
 	"github.com/maragudk/gomponents"
@@ -56,11 +57,76 @@ func baseHeader() gomponents.Node {
 }
 
 func switchThemeButton() gomponents.Node {
-	return html.Select(
-		gomponents.Attr("data-choose-theme", ""),
-		html.Class("select select-bordered select-sm"),
-		html.Option(html.Value(""), gomponents.Text("System theme")),
-		html.Option(html.Value("light"), gomponents.Text("Light theme")),
-		html.Option(html.Value("dark"), gomponents.Text("Dark theme")),
+	return html.Div(
+		alpine.XData(`{
+			theme: "",
+			
+			getCurrentTheme() {
+				const el = document.querySelector("html");
+				const theme = el.getAttribute("data-theme");
+				if (theme) {
+					this.theme = theme;
+					return
+				}
+				this.theme = "system";
+			},
+
+			init() {
+				setTimeout(() => {
+					this.getCurrentTheme();
+				}, 200)
+			}
+		}`),
+		alpine.XCloak(),
+		alpine.XOn("click", "getCurrentTheme()"),
+		alpine.XOn("click.outside", "getCurrentTheme()"),
+
+		html.Class("dropdown"),
+		html.Div(
+			html.TabIndex("0"),
+			html.Role("button"),
+			html.Class("btn m-1 space-x-1"),
+
+			html.Div(
+				html.Class("inline-block size-4"),
+				lucide.Laptop(alpine.XShow(`theme === "system"`)),
+				lucide.Sun(alpine.XShow(`theme === "light"`)),
+				lucide.Moon(alpine.XShow(`theme === "dark"`)),
+			),
+
+			component.SpanText("Theme"),
+			lucide.ChevronDown(),
+		),
+		html.Ul(
+			html.TabIndex("0"),
+			html.Class("dropdown-content bg-base-300 rounded z-[1] w-52 p-2 space-y-2"),
+			html.Li(
+				html.Button(
+					html.Data("set-theme", ""),
+					html.Class("btn btn-neutral btn-block"),
+					html.Type("button"),
+					lucide.Laptop(html.Class("mr-1")),
+					component.SpanText("System"),
+				),
+			),
+			html.Li(
+				html.Button(
+					html.Data("set-theme", "light"),
+					html.Class("btn btn-neutral btn-block"),
+					html.Type("button"),
+					lucide.Sun(html.Class("mr-1")),
+					component.SpanText("Light"),
+				),
+			),
+			html.Li(
+				html.Button(
+					html.Data("set-theme", "dark"),
+					html.Class("btn btn-neutral btn-block"),
+					html.Type("button"),
+					lucide.Moon(html.Class("mr-1")),
+					component.SpanText("Dark"),
+				),
+			),
+		),
 	)
 }
