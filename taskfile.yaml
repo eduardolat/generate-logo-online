@@ -47,14 +47,10 @@ tasks:
       - npm run standard
 
   lint-only:
-    cmds:
-      - task gen-db
-      - golangci-lint run ./...
+    cmd: golangci-lint run ./...
 
   test-only:
-    cmds:
-      - task gen-db
-      - go test ./...
+    cmd: go test ./...
 
   test:
     cmds:
