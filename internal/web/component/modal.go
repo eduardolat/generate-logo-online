@@ -152,6 +152,12 @@ func Modal(params ModalParams) ModalResult {
 		),
 	)
 
+	content = alpine.Template(
+		alpine.XData(""),
+		alpine.XTeleport("body"),
+		html.Div(content),
+	)
+
 	return ModalResult{
 		OpenerAttr: openerAttr,
 		HTML:       content,
