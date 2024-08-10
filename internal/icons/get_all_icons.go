@@ -26,7 +26,10 @@ func GetAllIcons() []Icon {
 		for i, iconInfo := range lucide.IconsInfo {
 			var svgBuffer bytes.Buffer
 			iconNode := iconInfo.Icon()
-			iconNode.Render(&svgBuffer)
+
+			if err := iconNode.Render(&svgBuffer); err != nil {
+				continue
+			}
 
 			searchTerms := make([]string, 0, 1+len(iconInfo.Tags)+len(iconInfo.Categories))
 			searchTerms = append(searchTerms, strings.ToLower(iconInfo.Name))
