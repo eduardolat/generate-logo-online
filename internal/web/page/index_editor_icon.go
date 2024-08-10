@@ -75,7 +75,7 @@ func indexEditorIconSize() gomponents.Node {
 			html.Min("1"),
 			html.Max("100"),
 			html.Step("1"),
-			html.Class("w-full"),
+			html.Class("range"),
 			alpine.XModel("iconSize"),
 		),
 	)
@@ -98,7 +98,7 @@ func indexEditorIconRotate() gomponents.Node {
 			html.Min("-180"),
 			html.Max("180"),
 			html.Step("1"),
-			html.Class("w-full"),
+			html.Class("range"),
 			alpine.XModel("iconRotate"),
 		),
 	)

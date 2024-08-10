@@ -1,79 +1,79 @@
-document.addEventListener("alpine:init", () => {
-  const queryParamKey = "data"
-  const localStorageKey = "gloAppData"
+document.addEventListener('alpine:init', () => {
+  const queryParamKey = 'data'
+  const localStorageKey = 'gloAppData'
   const keysToWatch = [
-    "editorTab",
-    "iconColor",
-    "iconSize",
-    "iconRotate",
-    "bgType",
-    "bgRadius",
-    "bgColor",
-    "bgGradientStart",
-    "bgGradientEnd",
-    "bgGradientType",
-    "bgGradientAngle",
-    "bgGradientCutLine",
-    "bgGradientBlur",
-    "originalSVG"
+    'editorTab',
+    'iconColor',
+    'iconSize',
+    'iconRotate',
+    'bgType',
+    'bgRadius',
+    'bgColor',
+    'bgGradientStart',
+    'bgGradientEnd',
+    'bgGradientType',
+    'bgGradientAngle',
+    'bgGradientCutLine',
+    'bgGradientBlur',
+    'originalSVG'
   ]
 
-  function debounce(func, wait) {
-    let timeout;
+  function debounce (func, wait) {
+    let timeout
     return function (...args) {
       const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
+        clearTimeout(timeout)
+        func(...args)
+      }
+      clearTimeout(timeout)
+      timeout = setTimeout(later, wait)
+    }
   }
 
-  function minifySvg(svgContent) {
+  function minifySvg (svgContent) {
     return svgContent
       .replace(/\n/g, '')
       .replace(/>\s+</g, '><')
       .replace(/\s{2,}/g, ' ')
-      .trim();
+      .trim()
   }
 
-  Alpine.data("gloapp", () => ({
-    editorTab: "icon", // icon, background
+  Alpine.data('gloapp', () => ({
+    editorTab: 'icon', // icon, background
     previewSize: 0,
 
-    iconColor: "#ffffff",
-    iconSize: "90",
-    iconRotate: "0",
+    iconColor: '#ffffff',
+    iconSize: '90',
+    iconRotate: '0',
 
-    bgType: "solid", // solid, gradient
-    bgRadius: "10",
-    bgColor: "#000000",
-    bgGradientStart: "#000000",
-    bgGradientEnd: "#ffffff",
-    bgGradientType: "linear", // linear, radial
-    bgGradientAngle: "0",
-    bgGradientCutLine: "50",
-    bgGradientBlur: "50",
+    bgType: 'solid', // solid, gradient
+    bgRadius: '10',
+    bgColor: '#000000',
+    bgGradientStart: '#000000',
+    bgGradientEnd: '#ffffff',
+    bgGradientType: 'linear', // linear, radial
+    bgGradientAngle: '0',
+    bgGradientCutLine: '50',
+    bgGradientBlur: '50',
 
-    originalSVG: "",
+    originalSVG: '',
 
-    setDefaultValues() {
-      this.editorTab = "icon"
+    setDefaultValues () {
+      this.editorTab = 'icon'
 
-      this.iconColor = "#ffffff"
-      this.iconSize = "90"
-      this.iconRotate = "0"
+      this.iconColor = '#ffffff'
+      this.iconSize = '90'
+      this.iconRotate = '0'
 
-      this.bgType = "solid"
-      this.bgRadius = "10"
-      this.bgColor = "#000000"
-      this.bgGradientStart = "#000000"
-      this.bgGradientEnd = "#001475"
-      this.bgGradientType = "linear"
-      this.bgGradientAngle = "0"
-      this.bgGradientCutLine = "50"
-      this.bgGradientBlur = "50"
+      this.bgType = 'solid'
+      this.bgRadius = '10'
+      this.bgColor = '#000000'
+      this.bgGradientStart = '#000000'
+      this.bgGradientEnd = '#001475'
+      this.bgGradientType = 'linear'
+      this.bgGradientAngle = '0'
+      this.bgGradientCutLine = '50'
+      this.bgGradientBlur = '50'
 
       this.originalSVG = minifySvg(`
         <svg
@@ -98,106 +98,106 @@ document.addEventListener("alpine:init", () => {
       this.storeValues()
     },
 
-    loadValues() {
+    loadValues () {
       // Load from query parameter
-      const queryParams = new URLSearchParams(window.location.search);
-      const encodedData = queryParams.get(queryParamKey);
-      let queryData = {};
+      const queryParams = new URLSearchParams(window.location.search)
+      const encodedData = queryParams.get(queryParamKey)
+      let queryData = {}
       if (encodedData) {
         try {
-          queryData = JSON.parse(atob(encodedData));
+          queryData = JSON.parse(atob(encodedData))
         } catch (e) {
-          console.error("Error parsing query parameter data:", e);
-          this.setDefaultValues();
-          return;
+          console.error('Error parsing query parameter data:', e)
+          this.setDefaultValues()
+          return
         }
       }
 
-      const hasQueryData = Object.keys(queryData).length > 0;
+      const hasQueryData = Object.keys(queryData).length > 0
       const useQueryData = () => {
         for (const key of keysToWatch) {
           if (queryData[key]) {
-            this[key] = queryData[key];
+            this[key] = queryData[key]
           }
         }
-        this.storeValues();
-      };
+        this.storeValues()
+      }
 
       // Load from localStorage
-      const savedData = localStorage.getItem(localStorageKey);
-      let localStorageData = {};
+      const savedData = localStorage.getItem(localStorageKey)
+      let localStorageData = {}
       if (savedData) {
         try {
-          localStorageData = JSON.parse(savedData);
+          localStorageData = JSON.parse(savedData)
         } catch (e) {
-          console.error("Error parsing localStorage data:", e);
-          this.setDefaultValues();
-          return;
+          console.error('Error parsing localStorage data:', e)
+          this.setDefaultValues()
+          return
         }
       }
 
-      const hasLocalStorageData = Object.keys(localStorageData).length > 0;
+      const hasLocalStorageData = Object.keys(localStorageData).length > 0
       const useLocalStorageData = () => {
         for (const key of keysToWatch) {
           if (localStorageData[key]) {
-            this[key] = localStorageData[key];
+            this[key] = localStorageData[key]
           }
         }
-        this.storeValues();
-      };
+        this.storeValues()
+      }
 
       // If both query and localStorage are empty, set default values
       if (!hasQueryData && !hasLocalStorageData) {
-        this.setDefaultValues();
-        return;
+        this.setDefaultValues()
+        return
       }
 
       // If query is empty and localStorage has values, use the localStorage values
       if (!hasQueryData && hasLocalStorageData) {
-        useLocalStorageData();
-        return;
+        useLocalStorageData()
+        return
       }
 
       // If query has values and localStorage is empty, use the query values
       if (hasQueryData && !hasLocalStorageData) {
-        useQueryData();
-        return;
+        useQueryData()
+        return
       }
 
       // If query and localStorage are different, ask which one to use
-      const areEqual = JSON.stringify(queryData) === JSON.stringify(localStorageData);
+      const areEqual = JSON.stringify(queryData) === JSON.stringify(localStorageData)
       if (areEqual) {
-        useLocalStorageData();
-        return;
+        useLocalStorageData()
+        return
       }
 
-      const useQuery = confirm("Do you want to use the settings from the URL? Local settings will be lost.");
+      const useQuery = confirm('Do you want to use the settings from the URL? Local settings will be lost.')
       if (useQuery) {
-        useQueryData();
+        useQueryData()
       } else {
-        useLocalStorageData();
+        useLocalStorageData()
       }
     },
 
-    storeValues() {
-      const dataToSave = {};
+    storeValues () {
+      const dataToSave = {}
 
       for (const key of keysToWatch) {
-        dataToSave[key] = this[key];
+        dataToSave[key] = this[key]
       }
 
       // Save to localStorage
-      localStorage.setItem(localStorageKey, JSON.stringify(dataToSave));
+      localStorage.setItem(localStorageKey, JSON.stringify(dataToSave))
 
       // Update URL query params
-      const encodedData = btoa(JSON.stringify(dataToSave));
-      const queryParams = new URLSearchParams(window.location.search);
-      queryParams.set(queryParamKey, encodedData);
-      const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
-      window.history.replaceState({}, '', newUrl);
+      const encodedData = btoa(JSON.stringify(dataToSave))
+      const queryParams = new URLSearchParams(window.location.search)
+      queryParams.set(queryParamKey, encodedData)
+      const newUrl = `${window.location.pathname}?${queryParams.toString()}`
+      window.history.replaceState({}, '', newUrl)
     },
 
-    setOriginalSVG(svg) {
+    setOriginalSVG (svg) {
       this.originalSVG = minifySvg(svg)
 
       // Close the modal simulating the user pressing the Escape key
@@ -211,11 +211,11 @@ document.addEventListener("alpine:init", () => {
       }))
     },
 
-    createBackground(
+    createBackground (
       bgType, bgColor, bgRadius, bgGradientStart, bgGradientEnd,
       bgGradientType, bgGradientAngle, bgGradientCutLine, bgGradientBlur
     ) {
-      if (bgType === "solid") {
+      if (bgType === 'solid') {
         return `
           <rect
             width="100%"
@@ -223,27 +223,27 @@ document.addEventListener("alpine:init", () => {
             fill="${bgColor}"
             rx="${bgRadius}%"
           ></rect>
-        `;
+        `
       }
 
-      if (bgType === "gradient") {
-        const gradID = `grad-bg-${crypto.randomUUID()}`;
-        let gradient;
+      if (bgType === 'gradient') {
+        const gradID = `grad-bg-${crypto.randomUUID()}`
+        let gradient
 
         // Normalize bgGradientCutLine and bgGradientBlur to values between 0 and 1
-        const cutLine = bgGradientCutLine / 100;
-        const blur = bgGradientBlur / 100;
+        const cutLine = bgGradientCutLine / 100
+        const blur = bgGradientBlur / 100
 
         // Calculate the stop points for the gradient
-        const startStop = Math.max(0, cutLine - blur / 2);
-        const endStop = Math.min(1, cutLine + blur / 2);
+        const startStop = Math.max(0, cutLine - blur / 2)
+        const endStop = Math.min(1, cutLine + blur / 2)
 
-        if (bgGradientType === "linear") {
-          const angleRad = (bgGradientAngle - 90) * (Math.PI / 180);
-          const x1 = 50 + Math.cos(angleRad) * 50;
-          const y1 = 50 + Math.sin(angleRad) * 50;
-          const x2 = 50 - Math.cos(angleRad) * 50;
-          const y2 = 50 - Math.sin(angleRad) * 50;
+        if (bgGradientType === 'linear') {
+          const angleRad = (bgGradientAngle - 90) * (Math.PI / 180)
+          const x1 = 50 + Math.cos(angleRad) * 50
+          const y1 = 50 + Math.sin(angleRad) * 50
+          const x2 = 50 - Math.cos(angleRad) * 50
+          const y2 = 50 - Math.sin(angleRad) * 50
 
           gradient = `
             <linearGradient id="${gradID}" x1="${x1}%" y1="${y1}%" x2="${x2}%" y2="${y2}%">
@@ -252,10 +252,10 @@ document.addEventListener("alpine:init", () => {
               <stop offset="${endStop * 100}%" stop-color="${bgGradientEnd}" />
               <stop offset="100%" stop-color="${bgGradientEnd}" />
             </linearGradient>
-          `;
+          `
         }
 
-        if (bgGradientType === "radial") {
+        if (bgGradientType === 'radial') {
           gradient = `
             <radialGradient id="${gradID}" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
               <stop offset="0%" stop-color="${bgGradientStart}" />
@@ -263,19 +263,19 @@ document.addEventListener("alpine:init", () => {
               <stop offset="${endStop * 100}%" stop-color="${bgGradientEnd}" />
               <stop offset="100%" stop-color="${bgGradientEnd}" />
             </radialGradient>
-          `;
+          `
         }
 
         return `
           <defs>${gradient}</defs>
           <rect width="100%" height="100%" fill="url(#${gradID})" rx="${bgRadius}%" />
-        `;
+        `
       }
 
-      return "";
+      return ''
     },
 
-    createSvgIcon(iconColor, iconSize, iconRotate) {
+    createSvgIcon (iconColor, iconSize, iconRotate) {
       const svg = this.originalSVG
         .replace(/stroke="currentColor"/g, `stroke="${iconColor}"`)
 
@@ -287,7 +287,7 @@ document.addEventListener("alpine:init", () => {
       `
     },
 
-    createParentSvg(size, children) {
+    createParentSvg (size, children) {
       if (size <= 0) size = 0
       return `
         <svg
@@ -301,8 +301,8 @@ document.addEventListener("alpine:init", () => {
       `
     },
 
-    createSvg(size) {
-      const icon = this.createSvgIcon(this.iconColor, this.iconSize, this.iconRotate);
+    createSvg (size) {
+      const icon = this.createSvgIcon(this.iconColor, this.iconSize, this.iconRotate)
       const bg = this.createBackground(
         this.bgType,
         this.bgColor,
@@ -313,41 +313,41 @@ document.addEventListener("alpine:init", () => {
         this.bgGradientAngle,
         this.bgGradientCutLine,
         this.bgGradientBlur
-      );
-      return this.createParentSvg(size, bg + icon);
+      )
+      return this.createParentSvg(size, bg + icon)
     },
 
-    createSvgWhite(size) {
-      const icon = this.createSvgIcon("#ffffff", this.iconSize, this.iconRotate)
+    createSvgWhite (size) {
+      const icon = this.createSvgIcon('#ffffff', this.iconSize, this.iconRotate)
       return this.createParentSvg(size, icon)
     },
 
-    createSvgBlack(size) {
-      const icon = this.createSvgIcon("#000000", this.iconSize, this.iconRotate)
+    createSvgBlack (size) {
+      const icon = this.createSvgIcon('#000000', this.iconSize, this.iconRotate)
       return this.createParentSvg(size, icon)
     },
 
-    get previewSvg() {
-      return this.createSvg(this.previewSize);
+    get previewSvg () {
+      return this.createSvg(this.previewSize)
     },
 
-    get dlPreviewSvg() {
-      return this.createSvg("150px")
+    get dlPreviewSvg () {
+      return this.createSvg('150px')
     },
 
-    get dlPreviewSvgWhite() {
-      return this.createSvgWhite("150px")
+    get dlPreviewSvgWhite () {
+      return this.createSvgWhite('150px')
     },
 
-    get dlPreviewSvgBlack() {
-      return this.createSvgBlack("150px")
+    get dlPreviewSvgBlack () {
+      return this.createSvgBlack('150px')
     },
 
-    startPreviewSizeCalc() {
-      const el = document.getElementById("preview-container")
+    startPreviewSizeCalc () {
+      const el = document.getElementById('preview-container')
       if (!el) {
-        console.error("Element with id 'preview-container' not found.");
-        return;
+        console.error("Element with id 'preview-container' not found.")
+        return
       }
 
       const calc = () => {
@@ -357,158 +357,158 @@ document.addEventListener("alpine:init", () => {
         this.previewSize = size
       }
 
-      calc();
+      calc()
       const resizeObserver = new ResizeObserver(() => calc())
       resizeObserver.observe(el)
     },
 
-    svgToBlobUrl(svgContent) {
+    svgToBlobUrl (svgContent) {
       const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' })
       return URL.createObjectURL(svgBlob)
     },
 
-    async svgToImageBlobUrl(svgContent, mimeType) {
+    async svgToImageBlobUrl (svgContent, mimeType) {
       const url = this.svgToBlobUrl(svgContent)
 
       return new Promise((resolve, reject) => {
-        const img = new Image();
+        const img = new Image()
 
         img.onload = function () {
-          URL.revokeObjectURL(url);
+          URL.revokeObjectURL(url)
 
-          const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
+          const canvas = document.createElement('canvas')
+          canvas.width = img.width
+          canvas.height = img.height
 
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0);
+          const ctx = canvas.getContext('2d')
+          ctx.drawImage(img, 0, 0)
 
           canvas.toBlob(function (blob) {
             if (blob) {
-              const pngUrl = URL.createObjectURL(blob);
-              resolve(pngUrl);
+              const pngUrl = URL.createObjectURL(blob)
+              resolve(pngUrl)
             } else {
-              reject(new Error('Error creating PNG blob.'));
+              reject(new Error('Error creating PNG blob.'))
             }
 
-            canvas.remove();
-          }, mimeType);
-        };
+            canvas.remove()
+          }, mimeType)
+        }
 
         img.onerror = function () {
-          reject(new Error('Error loading SVG image.'));
-        };
+          reject(new Error('Error loading SVG image.'))
+        }
 
-        img.src = url;
+        img.src = url
       })
     },
 
-    async svgToPngBlobUrl(svgContent) {
+    async svgToPngBlobUrl (svgContent) {
       return this.svgToImageBlobUrl(svgContent, 'image/png')
     },
 
-    async svgToIcoBlobUrl(svgContent) {
+    async svgToIcoBlobUrl (svgContent) {
       return this.svgToImageBlobUrl(svgContent, 'image/x-icon')
     },
 
-    async downloadZippedLogos() {
-      const zip = new JSZip();
+    async downloadZippedLogos () {
+      const zip = new JSZip()
 
       const addToZip = async (name, blobUrl) => {
         try {
-          const response = await fetch(blobUrl);
-          const blob = await response.blob();
-          zip.file(name, blob);
+          const response = await fetch(blobUrl)
+          const blob = await response.blob()
+          zip.file(name, blob)
         } catch (error) {
-          console.error(`Error adding ${name} to zip:`, error);
+          console.error(`Error adding ${name} to zip:`, error)
         } finally {
-          URL.revokeObjectURL(blobUrl);
+          URL.revokeObjectURL(blobUrl)
         }
       }
 
       const filesToZip = [
-        { name: "svg/logo.svg", size: "512px", color: "default" },
-        { name: "svg/logo-white.svg", size: "512px", color: "white" },
-        { name: "svg/logo-black.svg", size: "512px", color: "black" },
+        { name: 'svg/logo.svg', size: '512px', color: 'default' },
+        { name: 'svg/logo-white.svg', size: '512px', color: 'white' },
+        { name: 'svg/logo-black.svg', size: '512px', color: 'black' },
 
-        { name: "png/logo-512.png", size: "512px", color: "default" },
-        { name: "png/logo-256.png", size: "256px", color: "default" },
-        { name: "png/logo-128.png", size: "128px", color: "default" },
-        { name: "png/logo-64.png", size: "64px", color: "default" },
-        { name: "png/logo-32.png", size: "32px", color: "default" },
-        { name: "png/logo-16.png", size: "16px", color: "default" },
-        { name: "png/logo-white-512.png", size: "512px", color: "white" },
-        { name: "png/logo-white-256.png", size: "256px", color: "white" },
-        { name: "png/logo-white-128.png", size: "128px", color: "white" },
-        { name: "png/logo-white-64.png", size: "64px", color: "white" },
-        { name: "png/logo-white-32.png", size: "32px", color: "white" },
-        { name: "png/logo-white-16.png", size: "16px", color: "white" },
-        { name: "png/logo-black-512.png", size: "512px", color: "black" },
-        { name: "png/logo-black-256.png", size: "256px", color: "black" },
-        { name: "png/logo-black-128.png", size: "128px", color: "black" },
-        { name: "png/logo-black-64.png", size: "64px", color: "black" },
-        { name: "png/logo-black-32.png", size: "32px", color: "black" },
-        { name: "png/logo-black-16.png", size: "16px", color: "black" },
+        { name: 'png/logo-512.png', size: '512px', color: 'default' },
+        { name: 'png/logo-256.png', size: '256px', color: 'default' },
+        { name: 'png/logo-128.png', size: '128px', color: 'default' },
+        { name: 'png/logo-64.png', size: '64px', color: 'default' },
+        { name: 'png/logo-32.png', size: '32px', color: 'default' },
+        { name: 'png/logo-16.png', size: '16px', color: 'default' },
+        { name: 'png/logo-white-512.png', size: '512px', color: 'white' },
+        { name: 'png/logo-white-256.png', size: '256px', color: 'white' },
+        { name: 'png/logo-white-128.png', size: '128px', color: 'white' },
+        { name: 'png/logo-white-64.png', size: '64px', color: 'white' },
+        { name: 'png/logo-white-32.png', size: '32px', color: 'white' },
+        { name: 'png/logo-white-16.png', size: '16px', color: 'white' },
+        { name: 'png/logo-black-512.png', size: '512px', color: 'black' },
+        { name: 'png/logo-black-256.png', size: '256px', color: 'black' },
+        { name: 'png/logo-black-128.png', size: '128px', color: 'black' },
+        { name: 'png/logo-black-64.png', size: '64px', color: 'black' },
+        { name: 'png/logo-black-32.png', size: '32px', color: 'black' },
+        { name: 'png/logo-black-16.png', size: '16px', color: 'black' },
 
-        { name: "ico/logo-64.ico", size: "64px", color: "default" },
-        { name: "ico/logo-32.ico", size: "32px", color: "default" },
-        { name: "ico/logo-16.ico", size: "16px", color: "default" },
-        { name: "ico/logo-white-64.ico", size: "64px", color: "white" },
-        { name: "ico/logo-white-32.ico", size: "32px", color: "white" },
-        { name: "ico/logo-white-16.ico", size: "16px", color: "white" },
-        { name: "ico/logo-black-64.ico", size: "64px", color: "black" },
-        { name: "ico/logo-black-32.ico", size: "32px", color: "black" },
-        { name: "ico/logo-black-16.ico", size: "16px", color: "black" }
+        { name: 'ico/logo-64.ico', size: '64px', color: 'default' },
+        { name: 'ico/logo-32.ico', size: '32px', color: 'default' },
+        { name: 'ico/logo-16.ico', size: '16px', color: 'default' },
+        { name: 'ico/logo-white-64.ico', size: '64px', color: 'white' },
+        { name: 'ico/logo-white-32.ico', size: '32px', color: 'white' },
+        { name: 'ico/logo-white-16.ico', size: '16px', color: 'white' },
+        { name: 'ico/logo-black-64.ico', size: '64px', color: 'black' },
+        { name: 'ico/logo-black-32.ico', size: '32px', color: 'black' },
+        { name: 'ico/logo-black-16.ico', size: '16px', color: 'black' }
       ]
 
       const getSvg = (size, color) => {
-        if (color === "default") return this.createSvg(size);
-        if (color === "white") return this.createSvgWhite(size);
-        if (color === "black") return this.createSvgBlack(size);
+        if (color === 'default') return this.createSvg(size)
+        if (color === 'white') return this.createSvgWhite(size)
+        if (color === 'black') return this.createSvgBlack(size)
       }
 
       try {
         await Promise.all(filesToZip.map(async (file) => {
-          const svgString = minifySvg(getSvg(file.size, file.color));
-          let blobUrl;
+          const svgString = minifySvg(getSvg(file.size, file.color))
+          let blobUrl
 
-          if (file.name.includes(".svg")) {
-            blobUrl = this.svgToBlobUrl(svgString);
-          } else if (file.name.includes(".png")) {
-            blobUrl = await this.svgToPngBlobUrl(svgString);
-          } else if (file.name.includes(".ico")) {
-            blobUrl = await this.svgToIcoBlobUrl(svgString);
+          if (file.name.includes('.svg')) {
+            blobUrl = this.svgToBlobUrl(svgString)
+          } else if (file.name.includes('.png')) {
+            blobUrl = await this.svgToPngBlobUrl(svgString)
+          } else if (file.name.includes('.ico')) {
+            blobUrl = await this.svgToIcoBlobUrl(svgString)
           }
 
           if (blobUrl) {
-            await addToZip(file.name, blobUrl);
+            await addToZip(file.name, blobUrl)
           }
-        }));
+        }))
 
-        const content = await zip.generateAsync({ type: 'blob' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(content);
-        link.download = `logo-${Date.now()}.zip`;
-        link.click();
+        const content = await zip.generateAsync({ type: 'blob' })
+        const link = document.createElement('a')
+        link.href = URL.createObjectURL(content)
+        link.download = `logo-${Date.now()}.zip`
+        link.click()
 
-        URL.revokeObjectURL(link.href);
-        link.remove();
+        URL.revokeObjectURL(link.href)
+        link.remove()
       } catch (error) {
-        console.error("Error generating zip file:", error);
+        console.error('Error generating zip file:', error)
       }
     },
 
-    init() {
+    init () {
       this.loadValues()
       this.startPreviewSizeCalc()
 
-      const debouncedStoreValues = debounce(() => this.storeValues(), 300);
+      const debouncedStoreValues = debounce(() => this.storeValues(), 300)
       for (const key of keysToWatch) {
         this.$watch(key, () => debouncedStoreValues())
       }
 
-      console.log("✨ Generate Logo Online initialized!")
-      console.log("Star on GitHub: https://github.com/eduardolat/generate-logo")
+      console.log('✨ Generate Logo Online initialized!')
+      console.log('Star on GitHub: https://github.com/eduardolat/generate-logo')
     }
   }))
 })

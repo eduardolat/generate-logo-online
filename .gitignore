@@ -1,3 +1,12 @@
+# Environment
+.env
+.env.*
+!.env.dev
+!.env.example
+
+# NodeJS
+node_modules/
+
 # Distribution folder
 dist/
 .idea/
@@ -20,3 +29,4 @@ tmp/
 
 # Go workspace file
 go.work
+go.work.sum
