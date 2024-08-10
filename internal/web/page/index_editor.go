@@ -15,8 +15,6 @@ func indexEditor() gomponents.Node {
 			components.Classes{
 				"text-center py-2 cursor-pointer":  true,
 				"font-bold border border-base-300": true,
-				"rounded-tl":                       pos == "left",
-				"rounded-tr":                       pos == "right",
 				"[&.active]:border-black":          true,
 				"[&.active]:bg-black":              true,
 				"[&.active]:text-white":            true,
@@ -27,13 +25,13 @@ func indexEditor() gomponents.Node {
 
 	return html.Aside(
 		components.Classes{
-			"w-full max-w-[250px] bg-base-100":                 true,
-			"h-[calc(100dvh-90px)] max-h-[calc(1080px-100px)]": true,
-			"flex-none flex flex-col":                          true,
+			"w-full max-w-[250px] bg-base-100 rounded-box overflow-hidden": true,
+			"h-[calc(100dvh-90px)] max-h-[calc(1080px-100px)]":             true,
+			"flex-none flex flex-col":                                      true,
 		},
 		html.Nav(
 			html.Ul(
-				html.Class("grid grid-cols-2 rounded-t"),
+				html.Class("grid grid-cols-2"),
 				li("left", "icon", "Icon"),
 				li("right", "background", "Background"),
 			),

@@ -12,7 +12,7 @@ import (
 func baseHeader() gomponents.Node {
 	return html.Header(
 		components.Classes{
-			"normal-width h-[60px] bg-base-100":           true,
+			"normal-width h-[60px] bg-base-300":           true,
 			"flex justify-between items-center space-x-2": true,
 		},
 		html.Div(
@@ -99,9 +99,10 @@ func switchThemeButton() gomponents.Node {
 		),
 		html.Ul(
 			html.TabIndex("0"),
-			html.Class(
-				"dropdown-content bg-base-300 rounded z-[1] w-[150px] p-2 space-y-2 mt-2",
-			),
+			components.Classes{
+				"dropdown-content bg-base-200 rounded z-[1] w-[150px]": true,
+				"p-2 space-y-2 mt-2 shadow-sm":                         true,
+			},
 			html.Li(
 				html.Button(
 					html.Data("set-theme", ""),

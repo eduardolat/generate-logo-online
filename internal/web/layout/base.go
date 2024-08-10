@@ -13,7 +13,7 @@ type BaseProps struct {
 }
 
 func Base(props BaseProps) gomponents.Node {
-	title := "Generate logo"
+	title := "Generate logo online"
 	if props.Title != "" {
 		title = title + " - " + props.Title
 	}
@@ -56,7 +56,7 @@ func Base(props BaseProps) gomponents.Node {
 		Body: []gomponents.Node{
 			alpine.XData(`gloapp`),
 			alpine.XCloak(),
-			html.Class("space-y-2 bg-base-100"),
+			html.Class("space-y-2 bg-base-300 w-[100dvw] h-[100dvh]"),
 			baseHeader(),
 			gomponents.Group(props.Body),
 		},

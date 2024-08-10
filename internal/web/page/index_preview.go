@@ -12,9 +12,9 @@ func indexPreview() gomponents.Node {
 	return html.Div(
 		html.ID("preview-container"),
 		components.Classes{
-			"pattern-paper rounded flex-grow w-full select-none": true,
-			"relative border border-base-300":                    true,
-			"h-[calc(100dvh-90px)] max-h-[calc(1080px-90px)]":    true,
+			"pattern-paper rounded-box flex-grow w-full select-none": true,
+			"relative border border-base-300":                        true,
+			"h-[calc(100dvh-90px)] max-h-[calc(1080px-90px)]":        true,
 		},
 		html.Div(
 			html.Class("absolute top-1 left-2"),
