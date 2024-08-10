@@ -31,11 +31,12 @@ func Base(props BaseProps) gomponents.Node {
 				html.Rel("stylesheet"),
 				html.Href("/css/style.css"),
 			),
-
 			html.Script(
+				gomponents.Attr("type", "module"),
 				html.Src("/js/app.js"),
 				html.Defer(),
 			),
+
 			html.Script(
 				html.Src("https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"),
 				html.Defer(),
