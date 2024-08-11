@@ -1,8 +1,8 @@
 package web
 
 import (
-	"github.com/eduardolat/generate-logo/internal/web/page"
-	"github.com/eduardolat/generate-logo/internal/web/static"
+	"github.com/eduardolat/generate-logo-online/internal/web/page"
+	"github.com/eduardolat/generate-logo-online/internal/web/static"
 	"github.com/labstack/echo/v4"
 )
 

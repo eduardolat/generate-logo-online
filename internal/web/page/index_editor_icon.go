@@ -1,9 +1,9 @@
 package page
 
 import (
-	"github.com/eduardolat/generate-logo/internal/web/alpine"
-	"github.com/eduardolat/generate-logo/internal/web/component"
-	"github.com/eduardolat/generate-logo/internal/web/htmx"
+	"github.com/eduardolat/generate-logo-online/internal/web/alpine"
+	"github.com/eduardolat/generate-logo-online/internal/web/component"
+	"github.com/eduardolat/generate-logo-online/internal/web/htmx"
 	lucide "github.com/eduardolat/gomponents-lucide"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"

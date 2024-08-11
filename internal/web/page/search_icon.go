@@ -3,10 +3,10 @@ package page
 import (
 	"net/http"
 
-	"github.com/eduardolat/generate-logo/internal/icons"
-	"github.com/eduardolat/generate-logo/internal/util/echoutil"
-	"github.com/eduardolat/generate-logo/internal/web/alpine"
-	"github.com/eduardolat/generate-logo/internal/web/component"
+	"github.com/eduardolat/generate-logo-online/internal/icons"
+	"github.com/eduardolat/generate-logo-online/internal/util/echoutil"
+	"github.com/eduardolat/generate-logo-online/internal/web/alpine"
+	"github.com/eduardolat/generate-logo-online/internal/web/component"
 	"github.com/labstack/echo/v4"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"

@@ -509,7 +509,7 @@ export function initAlpine () {
         }
 
         console.log('✨ Generate Logo Online initialized!')
-        console.log('Star on GitHub: https://github.com/eduardolat/generate-logo')
+        console.log('Star on GitHub: https://github.com/eduardolat/generate-logo-online')
       }
     }))
   })

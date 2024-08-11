@@ -1,4 +1,4 @@
-name: generate-logo
+name: generate-logo-online
 
 services:
   app:

@@ -1,4 +1,4 @@
-module github.com/eduardolat/generate-logo
+module github.com/eduardolat/generate-logo-online
 
 go 1.22.5
 

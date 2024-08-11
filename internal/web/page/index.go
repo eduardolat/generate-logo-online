@@ -3,8 +3,8 @@ package page
 import (
 	"net/http"
 
-	"github.com/eduardolat/generate-logo/internal/util/echoutil"
-	"github.com/eduardolat/generate-logo/internal/web/layout"
+	"github.com/eduardolat/generate-logo-online/internal/util/echoutil"
+	"github.com/eduardolat/generate-logo-online/internal/web/layout"
 	"github.com/labstack/echo/v4"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"

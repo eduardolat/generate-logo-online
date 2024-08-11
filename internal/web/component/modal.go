@@ -3,7 +3,7 @@ package component
 import (
 	"fmt"
 
-	"github.com/eduardolat/generate-logo/internal/web/alpine"
+	"github.com/eduardolat/generate-logo-online/internal/web/alpine"
 	lucide "github.com/eduardolat/gomponents-lucide"
 	"github.com/google/uuid"
 	"github.com/maragudk/gomponents"

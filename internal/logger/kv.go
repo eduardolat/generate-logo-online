@@ -1,6 +1,6 @@
 package logger
 
-import "github.com/eduardolat/generate-logo/internal/util/maputil"
+import "github.com/eduardolat/generate-logo-online/internal/util/maputil"
 
 // KV is a record of key-value pair to be logged
 type KV map[string]any

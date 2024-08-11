@@ -1,8 +1,8 @@
 package layout
 
 import (
-	"github.com/eduardolat/generate-logo/internal/web/alpine"
-	"github.com/eduardolat/generate-logo/internal/web/component"
+	"github.com/eduardolat/generate-logo-online/internal/web/alpine"
+	"github.com/eduardolat/generate-logo-online/internal/web/component"
 	lucide "github.com/eduardolat/gomponents-lucide"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/components"
@@ -45,7 +45,7 @@ func baseHeader() gomponents.Node {
 				html.Li(
 					html.A(
 						html.Class("btn btn-neutral space-x-1"),
-						html.Href("https://github.com/eduardolat/generate-logo"),
+						html.Href("https://github.com/eduardolat/generate-logo-online"),
 						html.Target("_blank"),
 						lucide.Github(),
 						component.SpanText("GitHub"),

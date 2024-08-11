@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/eduardolat/generate-logo/internal/logger"
-	"github.com/eduardolat/generate-logo/internal/web"
+	"github.com/eduardolat/generate-logo-online/internal/logger"
+	"github.com/eduardolat/generate-logo-online/internal/web"
 	"github.com/labstack/echo/v4"
 )
 

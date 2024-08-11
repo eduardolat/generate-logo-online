@@ -1,7 +1,7 @@
 package layout
 
 import (
-	"github.com/eduardolat/generate-logo/internal/web/alpine"
+	"github.com/eduardolat/generate-logo-online/internal/web/alpine"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/components"
 	"github.com/maragudk/gomponents/html"
