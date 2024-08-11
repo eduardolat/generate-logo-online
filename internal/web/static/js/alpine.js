@@ -59,6 +59,11 @@ export function initAlpine () {
 
       originalSVG: '',
 
+      reset () {
+        if (!confirm('Do you want to reset all settings?')) return
+        this.setDefaultValues()
+      },
+
       setDefaultValues () {
         this.editorTab = 'icon'
 

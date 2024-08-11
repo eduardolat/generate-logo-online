@@ -3,6 +3,7 @@ package page
 import (
 	"github.com/eduardolat/generate-logo-online/internal/web/alpine"
 	"github.com/eduardolat/generate-logo-online/internal/web/component"
+	lucide "github.com/eduardolat/gomponents-lucide"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/components"
 	"github.com/maragudk/gomponents/html"
@@ -19,6 +20,15 @@ func indexPreview() gomponents.Node {
 		html.Div(
 			html.Class("absolute top-1 left-2"),
 			component.H2Text("Preview"),
+		),
+		html.Div(
+			html.Class("absolute top-1 right-2 z-50"),
+			html.Button(
+				html.Class("btn btn-ghost btn-sm btn-neutral"),
+				component.SpanText("Reset"),
+				lucide.Eraser(),
+				alpine.XOn("click", "reset"),
+			),
 		),
 		html.Div(
 			components.Classes{
