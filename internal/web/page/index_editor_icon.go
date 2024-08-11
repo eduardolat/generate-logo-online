@@ -27,19 +27,16 @@ func indexEditorIconPicker() gomponents.Node {
 			html.Div(
 				html.Class("space-y-4 h-full"),
 
-				component.Input(component.InputParams{
-					Name:        "q",
-					Type:        component.InputTypeText,
-					Color:       component.ColorBlack,
-					Placeholder: "Search for an icon",
-					Block:       true,
-					Children: []gomponents.Node{
-						htmx.HxGet("/icons"),
-						htmx.HxTrigger("input changed delay:500ms, search"),
-						htmx.HxTarget("#icon-picker-results"),
-						htmx.HxIndicator("#icon-picker-indicator"),
-					},
-				}),
+				html.Input(
+					html.Class("input input-bordered w-full"),
+					html.Type("text"),
+					html.Name("q"),
+					html.Placeholder("Search for an icon"),
+					htmx.HxGet("/icons"),
+					htmx.HxTrigger("input changed delay:500ms, search"),
+					htmx.HxTarget("#icon-picker-results"),
+					htmx.HxIndicator("#icon-picker-indicator"),
+				),
 
 				html.Div(
 					html.ID("icon-picker-results"),
