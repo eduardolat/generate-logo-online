@@ -11,7 +11,7 @@ func indexEditor() gomponents.Node {
 	navBtn := func(tab string, text string) gomponents.Node {
 		return html.Div(
 			alpine.XBind("class", "editorTab == '"+tab+"' && 'border-neutral'"),
-			html.Class("border-b"),
+			html.Class("border-b border-base-300"),
 			html.Button(
 				alpine.XOn("click", "editorTab = '"+tab+"'"),
 				alpine.XBind("class", "editorTab != '"+tab+"' && 'btn-ghost'"),
