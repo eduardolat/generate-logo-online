@@ -40,11 +40,15 @@ func indexEditorIconPicker() gomponents.Node {
 
 				html.Div(
 					html.ID("icon-picker-results"),
+					html.Class("grid grid-cols-7 gap-2"),
 					htmx.HxGet("/icons"),
 					htmx.HxTrigger("intersect once"),
 					htmx.HxIndicator("#icon-picker-indicator"),
 
-					component.SpinnerContainerLg(),
+					html.Div(
+						html.Class("col-span-7"),
+						component.SpinnerContainerLg(),
+					),
 				),
 			),
 		},
