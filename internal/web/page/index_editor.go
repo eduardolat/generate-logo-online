@@ -8,18 +8,16 @@ import (
 )
 
 func indexEditor() gomponents.Node {
-	li := func(pos string, tab string, text string) gomponents.Node {
-		return html.Li(
-			alpine.XOn("click", "editorTab = '"+tab+"'"),
-			alpine.XBind("class", "editorTab == '"+tab+"' ? 'active' : 'inactive'"),
-			components.Classes{
-				"text-center py-2 cursor-pointer":  true,
-				"font-bold border border-base-300": true,
-				"[&.active]:border-black":          true,
-				"[&.active]:bg-black":              true,
-				"[&.active]:text-white":            true,
-			},
-			gomponents.Text(text),
+	navBtn := func(tab string, text string) gomponents.Node {
+		return html.Div(
+			alpine.XBind("class", "editorTab == '"+tab+"' && 'border-neutral'"),
+			html.Class("border-b"),
+			html.Button(
+				alpine.XOn("click", "editorTab = '"+tab+"'"),
+				alpine.XBind("class", "editorTab != '"+tab+"' && 'btn-ghost'"),
+				html.Class("btn btn-neutral btn-block rounded-none no-animation"),
+				gomponents.Text(text),
+			),
 		)
 	}
 
@@ -30,14 +28,12 @@ func indexEditor() gomponents.Node {
 			"flex-none flex flex-col":                                      true,
 		},
 		html.Nav(
-			html.Ul(
-				html.Class("grid grid-cols-2"),
-				li("left", "icon", "Icon"),
-				li("right", "background", "Background"),
-			),
+			html.Class("grid grid-cols-2"),
+			navBtn("icon", "Icon"),
+			navBtn("background", "Background"),
 		),
 		html.Div(
-			html.Class("flex-grow p-2 border border-y-0 border-base-300"),
+			html.Class("flex-grow p-2"),
 			html.Div(
 				alpine.XShow("editorTab == 'icon'"),
 				indexEditorIcon(),

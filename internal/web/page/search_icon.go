@@ -6,7 +6,6 @@ import (
 	"github.com/eduardolat/generate-logo-online/internal/icons"
 	"github.com/eduardolat/generate-logo-online/internal/util/echoutil"
 	"github.com/eduardolat/generate-logo-online/internal/web/alpine"
-	"github.com/eduardolat/generate-logo-online/internal/web/component"
 	"github.com/labstack/echo/v4"
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
@@ -37,18 +36,13 @@ func searchIconResults(foundIcons []icons.Icon) gomponents.Node {
 				foundIcons,
 				func(icon icons.Icon) gomponents.Node {
 					return html.Div(
-						component.Button(component.ButtonParams{
-							Type:    component.ButtonTypeButton,
-							Outline: true,
-							Square:  true,
-							Size:    component.SizeLg,
-							Class:   "!size-12",
-							Children: []gomponents.Node{
-								alpine.XOn("click", `setOriginalSVG('`+icon.SVG+`')`),
-								html.Title(icon.Name),
-								icon.Icon(html.Class("size-8")),
-							},
-						}),
+						html.Button(
+							html.Type("button"),
+							html.Class("btn btn-outline btn-square btn-lg"),
+							alpine.XOn("click", `setOriginalSVG('`+icon.SVG+`')`),
+							html.Title(icon.Name),
+							icon.Icon(html.Class("size-8")),
+						),
 					)
 				}),
 		),

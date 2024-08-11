@@ -32,34 +32,25 @@ func indexEditorDownload() gomponents.Node {
 					),
 				),
 
-				component.Button(component.ButtonParams{
-					Type:  component.ButtonTypeButton,
-					Color: component.ColorBlack,
-					Size:  component.SizeMd,
-					Block: true,
-					Children: []gomponents.Node{
-						alpine.XOn("click", "downloadZippedLogos"),
-						component.SpanText("Download"),
-						lucide.CloudDownload(html.Class("ml-1")),
-					},
-				}),
+				html.Button(
+					html.Type("button"),
+					html.Class("btn btn-primary btn-block"),
+					alpine.XOn("click", "downloadZippedLogos"),
+					component.SpanText("Download"),
+					lucide.CloudDownload(html.Class("ml-1")),
+				),
 			),
 		},
 	})
 
 	return html.Div(
 		mo.HTML,
-		component.Button(component.ButtonParams{
-			Type:  component.ButtonTypeButton,
-			Color: component.ColorBlack,
-			Size:  component.SizeMd,
-			Block: true,
-			Class: "rounded-t-none",
-			Children: []gomponents.Node{
-				mo.OpenerAttr,
-				component.SpanText("Download"),
-				lucide.CloudDownload(html.Class("ml-1")),
-			},
-		}),
+		html.Button(
+			html.Type("button"),
+			html.Class("btn btn-primary btn-block rounded-none no-animation"),
+			mo.OpenerAttr,
+			component.SpanText("Download"),
+			lucide.CloudDownload(html.Class("ml-1")),
+		),
 	)
 }

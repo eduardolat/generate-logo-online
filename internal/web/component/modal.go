@@ -135,14 +135,12 @@ func Modal(params ModalParams) ModalResult {
 					),
 				),
 
-				Button(ButtonParams{
-					Ghost:  true,
-					Circle: true,
-					Children: []gomponents.Node{
-						lucide.X(html.Class("size-6")),
-						closerAttr,
-					},
-				}),
+				html.Button(
+					html.Type("button"),
+					html.Class("btn btn-ghost btn-circle"),
+					lucide.X(html.Class("size-6")),
+					closerAttr,
+				),
 			),
 
 			html.Div(

@@ -53,14 +53,13 @@ func indexEditorIconPicker() gomponents.Node {
 		},
 	})
 
-	button := component.Button(component.ButtonParams{
-		Block: true,
-		Children: []gomponents.Node{
-			mo.OpenerAttr,
-			component.SpanText("Pick an icon"),
-			lucide.Pointer(html.Class("ml-1")),
-		},
-	})
+	button := html.Button(
+		html.Type("button"),
+		html.Class("btn btn-neutral btn-block"),
+		mo.OpenerAttr,
+		component.SpanText("Pick an icon"),
+		lucide.Pointer(html.Class("ml-1")),
+	)
 
 	return html.Div(
 		mo.HTML,
